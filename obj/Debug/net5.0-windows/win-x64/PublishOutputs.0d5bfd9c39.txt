@@ -1,0 +1,11 @@
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\OxiZip.pdb
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\clrcompression.dll
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\clrjit.dll
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\coreclr.dll
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\mscordaccore.dll
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\D3DCompiler_47_cor3.dll
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\PenImc_cor3.dll
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\PresentationNative_cor3.dll
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\vcruntime140_cor3.dll
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\wpfgfx_cor3.dll
+C:\Users\karol\Desktop\Programowanie\C#\OxiZip\Portable\OxiZip.exe
