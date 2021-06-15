@@ -38,4 +38,4 @@ And yes, you can unpack it using OxiZip located inside.
  - Unpack
 
 ## Tools and technologies
-C#, Visual Studio, Windows Forms, System.IO.Compression library.
+C#, Visual Studio, Windows Forms, System.IO.Compression.
