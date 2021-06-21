@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.IO.Compression;
 
 namespace WinFormsPaczkomat
 {
@@ -19,17 +10,20 @@ namespace WinFormsPaczkomat
         static readonly string startingPath = @$"C:\Users\{userName}\Desktop\";
 
         // Fields of arrays of files to compress
-        static string[] filePaths = Array.Empty<string>();
-        static string[] fileNames = Array.Empty<string>();
-        static string[] folderPaths = Array.Empty<string>();
+        static string[] filesToArchiveFullNames = Array.Empty<string>();
+        static string[] filesToArchiveNames = Array.Empty<string>();
+        static string[] foldersToArchivePaths = Array.Empty<string>();
+        static string[] foldersToArchiveNames = Array.Empty<string>();
 
         // Compression-related fiels
-        static string newZipEntireLocation;
+        static string newZipFullName;
         static string newZipFolderLocation;
         static string newZipName = "Archiwum";
+
+        // Memorizing last created zip folder location
         static string lastZipFolderLocation;
 
-        static int fileExistsOption = 0;
+        static string fileExistsOption = String.Empty;
 
         // Decompression-related fields
         static string pathOfArch;
@@ -41,6 +35,11 @@ namespace WinFormsPaczkomat
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

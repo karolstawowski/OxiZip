@@ -5,7 +5,7 @@ using System.IO.Compression;
 
 namespace WinFormsPaczkomat
 {
-    // Handling of compressing service
+    // Handling of dearchiving service
     partial class Form1
     {
         private void buttonUnpackSelectToExtract_Click(object sender, EventArgs e)
