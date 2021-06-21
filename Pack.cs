@@ -129,7 +129,7 @@ namespace WinFormsPaczkomat
 
         private void buttonPackDeleteAllItems_Click(object sender, EventArgs e)
         {
-            if (filesToArchiveFullNames.Length != 0)
+            if (filesToArchiveFullNames.Length != 0 || foldersToArchiveNames.Length != 0)
             {
                 listOfFilesToPack.Items.Clear();
                 Array.Clear(filesToArchiveFullNames, 0, filesToArchiveFullNames.Length);

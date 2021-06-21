@@ -51,14 +51,7 @@ namespace WinFormsPaczkomat
                     {
                         ZipFile.ExtractToDirectory(pathOfArch, unpackTargetLocation + "\\" + nazwaPaczki);
                     }
-                    catch (IOException)
-                    {
-                        Console.WriteLine("Plik już istnieje");
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Niepoprawna ścieżka");
-                    }
+                    catch (Exception) { }
                     progressBarUnpack.Value = 100;
                 }
                 UnpackDonePrompt();
