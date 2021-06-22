@@ -47,7 +47,6 @@ namespace WinFormsPaczkomat
                 openFileDialog.Filter = "All files (*.*)|*.*";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
-                openFileDialog.DereferenceLinks = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
