@@ -11,10 +11,10 @@ namespace WinFormsPaczkomat
         static readonly string startingPath = @$"C:\Users\{userName}\Desktop\";
 
         // Fields of arrays of files to compress
-        static string[] filesToArchiveFullNames = Array.Empty<string>();
-        static string[] filesToArchiveNames = Array.Empty<string>();
-        static string[] foldersToArchivePaths = Array.Empty<string>();
-        static string[] foldersToArchiveNames = Array.Empty<string>();
+        static List<string> filesToArchiveFullNames = new List<string>();
+        static List<string> filesToArchiveNames = new List<string>();
+        static List<string> foldersToArchivePaths = new List<string>();
+        static List<string> foldersToArchiveNames = new List<string>();
 
         // Compression-related fiels
         static string newZipFullName;

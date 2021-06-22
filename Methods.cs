@@ -8,7 +8,7 @@ namespace WinFormsPaczkomat
 {
     public partial class Form1
     {
-        private static List<string> GetNamesOfFiles(string[] filesToArchiveFullNames)
+        private static List<string> GetNamesOfFiles(List<string> filesToArchiveFullNames)
         {
             List<string> justNames = new List<string>();
             string[] holder;
@@ -19,7 +19,7 @@ namespace WinFormsPaczkomat
             }
             return justNames;
         }
-        private static List<string> GetNamesOfFolders(string[] foldersToArchiveNames)
+        private static List<string> GetNamesOfFolders(List<string> foldersToArchiveNames)
         {
             List<string> justNames = new List<string>();
             string[] holder;
@@ -70,22 +70,19 @@ namespace WinFormsPaczkomat
         }
         private void PackDoneClear()
         {
-            Array.Clear(filesToArchiveNames, 0, filesToArchiveNames.Length);
-            Array.Resize(ref filesToArchiveNames, 0);
-            Array.Clear(filesToArchiveFullNames, 0, filesToArchiveFullNames.Length);
-            Array.Resize(ref filesToArchiveFullNames, 0);
-            Array.Clear(foldersToArchivePaths, 0, foldersToArchivePaths.Length);
-            Array.Resize(ref foldersToArchivePaths, 0);
-            Array.Clear(foldersToArchiveNames, 0, foldersToArchiveNames.Length);
-            Array.Resize(ref foldersToArchiveNames, 0);
+            filesToArchiveNames.Clear();
+            filesToArchiveFullNames.Clear();
+            foldersToArchivePaths.Clear();
+            foldersToArchiveNames.Clear();
+            listOfFilesToPack.Items.Clear();
+
             newZipFullName = String.Empty;
             newZipName = String.Empty;
             textBoxPackName.Text = "Archiwum";
             newZipName = "Archiwum";
-            listOfFilesToPack.Items.Clear();
-            progressBarPack.Value = 0;
             comboBoxCompressionLevel.SelectedIndex = 1;
             comboBoxCompressionLevel.Text = "średni";
+            progressBarPack.Value = 0;
         }
         private void UnpackDoneClear()
         {
@@ -97,7 +94,7 @@ namespace WinFormsPaczkomat
         }
         private void FileExistsPrompt(ref string selectedOption)
         {
-            string message = "Archwium o tej nazwie istnieje. Czy chcesz go nadpisać?\n\nWybór opcji \"Nie\" spowoduje dopisanie plików do archiwum."; 
+            string message = "Archwium o tej nazwie istnieje. Czy chcesz go nadpisać?\n\nWybór opcji \"Nie\" spowoduje dopisanie plików do archiwum.";
             string caption = "Plik już istnieje";
             MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
             DialogResult result;
@@ -110,7 +107,7 @@ namespace WinFormsPaczkomat
             {
                 selectedOption = "add";
             }
-            else 
+            else
             {
                 progressBarPack.Value = 0;
             };
@@ -132,7 +129,7 @@ namespace WinFormsPaczkomat
         private static bool IsNameOfNewArchiveCorrect(string ArchiveName)
         {
             char[] check = new char[] { '/', '\\', ':', '*', '?', '"', '<', '>', '|' };
-            foreach(char character in check)
+            foreach (char character in check)
             {
                 if (ArchiveName.Contains(character) == true)
                 {
@@ -215,14 +212,14 @@ namespace WinFormsPaczkomat
             {
                 using (ZipArchive archive = new ZipArchive(newZip, ZipArchiveMode.Update))
                 {
-                    for (int i = 0; i < filesToArchiveFullNames.Length; i++)
+                    for (int i = 0; i < filesToArchiveFullNames.Count; i++)
                     {
                         ZipArchiveEntry entry = archive.CreateEntryFromFile(filesToArchiveFullNames[i], filesToArchiveNames[i], SelectedCompressionLevel(compressionLevel));
                     }
                     archive.Dispose();
                 }
             }
-            for (int i = 0; i < foldersToArchivePaths.Length; i++)
+            for (int i = 0; i < foldersToArchivePaths.Count; i++)
             {
                 InsertElementsToArchive(foldersToArchivePaths[i]);
             }
@@ -241,18 +238,9 @@ namespace WinFormsPaczkomat
             }
             PackFolders(folderPath, rootFolderName + "\\", newZipFullName);
         }
-        static void CheckIfFolderIsAddedAlready(string[] foldersToArchiveNames)
+        static void CheckIfFolderIsAddedAlready(List<string> foldersToArchiveNames)
         {
-            foreach(string entry in foldersToArchiveNames)
-            {
-                for(int i=foldersToArchiveNames.Length; i>0;i--)
-                {
-                    if(entry == foldersToArchiveNames[i])
-                    {
-
-                    }
-                }
-            }
+            // In progress
         }
     }
 }

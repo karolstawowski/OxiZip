@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
-using System.Collections.Generic;
 
 namespace WinFormsPaczkomat
 {
@@ -56,7 +55,7 @@ namespace WinFormsPaczkomat
                     catch (Exception) { }
                     progressBarUnpack.Value = 100;
                 }
-                
+
                 UnpackDonePrompt();
                 UnpackDoneClear();
             }

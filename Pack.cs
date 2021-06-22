@@ -16,11 +16,11 @@ namespace WinFormsPaczkomat
             using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
             {
                 folderBrowserDialog.ShowNewFolderButton = true;
-                if(lastZipFolderLocation != null)
+                if (lastZipFolderLocation != null)
                 {
                     folderBrowserDialog.SelectedPath = lastZipFolderLocation;
                 }
-                
+
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
                     newZipFolderLocation = folderBrowserDialog.SelectedPath;
@@ -51,19 +51,10 @@ namespace WinFormsPaczkomat
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    int counter = 0;
-                    int previousSizeOfArray = filesToArchiveFullNames.Length;
-
-                    // Add locations of selected files to filesToArchiveFullNames array by resizing array and adding them
-                    Array.Resize(ref filesToArchiveFullNames, previousSizeOfArray + openFileDialog.FileNames.Length);
-                    for (int i = previousSizeOfArray; i < previousSizeOfArray + openFileDialog.FileNames.Length; i++)
-                    {
-                        filesToArchiveFullNames[i] = openFileDialog.FileNames[counter];
-                        counter++;
-                    }
-                    // Add locations of selected files to listOfFilesToPack list, which is a part of UI
+                    // Add locations of selected files to filesToArchiveFullNames and listOfFilesToPack lists
                     foreach (string s in openFileDialog.FileNames)
                     {
+                        filesToArchiveFullNames.Add(s);
                         listOfFilesToPack.Items.Add(s);
                     }
                 }
@@ -85,10 +76,8 @@ namespace WinFormsPaczkomat
                 {
                     lastZipFolderLocation = folderBrowserDialog.SelectedPath;
 
-                    // Add location of selected folder to foldersToArchivePaths array
-                    Array.Resize(ref foldersToArchivePaths, foldersToArchivePaths.Length + 1);
-                    foldersToArchivePaths[foldersToArchivePaths.Length - 1] = folderBrowserDialog.SelectedPath;
-                    // Add location of selected folder to foldersToArchivePaths list, which is a part of UI
+                    // Add path of selected folder to foldersToArchivePaths and listOfFilesToPack lists
+                    foldersToArchivePaths.Add(folderBrowserDialog.SelectedPath);
                     listOfFilesToPack.Items.Add(folderBrowserDialog.SelectedPath);
                 }
             }
@@ -99,7 +88,7 @@ namespace WinFormsPaczkomat
             int listSelectedIndex = listOfFilesToPack.SelectedIndex;
             string selectedItemString = listOfFilesToPack.SelectedItem.ToString();
             FileAttributes attr = File.GetAttributes(selectedItemString);
-            
+
             // Check if any element of list is selected
             if (listSelectedIndex != -1)
             {
@@ -108,52 +97,40 @@ namespace WinFormsPaczkomat
                 // Check if selected item is a directory
                 if (attr.HasFlag(FileAttributes.Directory))
                 {
-                    int indexOfFolderInFolderPathsArray = Array.IndexOf(foldersToArchivePaths, selectedItemString);
-                    Array.Clear(foldersToArchivePaths, indexOfFolderInFolderPathsArray, 1);
-                    for (int i = indexOfFolderInFolderPathsArray; i < foldersToArchivePaths.Length - 1; i++)
-                    {
-                        foldersToArchivePaths[i] = foldersToArchivePaths[i + 1];
-                    }
-                    Array.Resize(ref foldersToArchivePaths, foldersToArchivePaths.Length - 1);
+                    foldersToArchivePaths.Remove(selectedItemString);
                 }
                 // Then selected item is a file
                 else
                 {
-                    int indexOfFileInFilePathsArray = Array.IndexOf(filesToArchiveFullNames, selectedItemString);
-                    Array.Clear(filesToArchiveFullNames, indexOfFileInFilePathsArray, 1);
-                    for (int i = indexOfFileInFilePathsArray; i < filesToArchiveFullNames.Length - 1; i++)
-                    {
-                        filesToArchiveFullNames[i] = filesToArchiveFullNames[i + 1];
-                    }
-                    Array.Resize(ref filesToArchiveFullNames, filesToArchiveFullNames.Length - 1);
+                    filesToArchiveFullNames.Remove(selectedItemString);
                 }
             }
         }
 
         private void buttonPackDeleteAllItems_Click(object sender, EventArgs e)
         {
-            if (filesToArchiveFullNames.Length != 0 || foldersToArchiveNames.Length != 0)
+            if (filesToArchiveFullNames.Count != 0 || foldersToArchiveNames.Count != 0)
             {
                 listOfFilesToPack.Items.Clear();
-                Array.Clear(filesToArchiveFullNames, 0, filesToArchiveFullNames.Length);
-                Array.Clear(foldersToArchivePaths, 0, foldersToArchivePaths.Length);
-                Array.Resize(ref filesToArchiveFullNames, 0);
-                Array.Resize(ref foldersToArchivePaths, 0);
+                filesToArchiveFullNames.Clear();
+                foldersToArchivePaths.Clear();
             }
         }
 
         private void buttonPackPack_Click(object sender, EventArgs e)
         {
             // Check if required data is delivered
-            if (newZipName != null & (filesToArchiveFullNames.Length != 0 | foldersToArchivePaths.Length != 0) & newZipFolderLocation != null & newZipFolderLocation != String.Empty)
+            if (newZipName != null & (filesToArchiveFullNames.Count != 0 | foldersToArchivePaths.Count != 0) & newZipFolderLocation != null & newZipFolderLocation != String.Empty)
             {
                 // Check if name of new archive meets the conditions
                 if (IsNameOfNewArchiveCorrect(newZipName) == true)
                 {
-                    // Initialization of variables - load names of files and folders to archive
+                    // In progress
                     CheckIfFolderIsAddedAlready(foldersToArchiveNames);
-                    filesToArchiveNames = GetNamesOfFiles(filesToArchiveFullNames).ToArray();
-                    foldersToArchiveNames = GetNamesOfFolders(foldersToArchiveNames).ToArray();
+
+                    // Initialization of variables - load names of files and folders to archive
+                    filesToArchiveNames = GetNamesOfFiles(filesToArchiveFullNames);
+                    foldersToArchiveNames = GetNamesOfFolders(foldersToArchiveNames);
                     newZipFullName = newZipFolderLocation + "\\" + newZipName + ".zip";
                     progressBarPack.Value = 20;
 
@@ -169,10 +146,10 @@ namespace WinFormsPaczkomat
                             FileStream createNewZip = File.Create(newZipFullName);
                             createNewZip.Close();
 
-                                // Create other task, which packs files and folders
-                                Task packFilesAndFoldersTask = new Task(new Action(PackFilesAndFolders));
-                                packFilesAndFoldersTask.Start();
-                                packFilesAndFoldersTask.Wait();
+                            // Create other task, which packs files and folders
+                            Task packFilesAndFoldersTask = new Task(new Action(PackFilesAndFolders));
+                            packFilesAndFoldersTask.Start();
+                            packFilesAndFoldersTask.Wait();
 
                             // Give user and update on changes
                             progressBarPack.Value = 100;
@@ -181,10 +158,10 @@ namespace WinFormsPaczkomat
                         }
                         else if (fileExistsOption == "add")
                         {
-                                // Create other task, which packs files and folders
-                                Task packFilesAndFoldersTask = new Task(new Action(PackFilesAndFolders));
-                                packFilesAndFoldersTask.Start();
-                                packFilesAndFoldersTask.Wait();
+                            // Create other task, which packs files and folders
+                            Task packFilesAndFoldersTask = new Task(new Action(PackFilesAndFolders));
+                            packFilesAndFoldersTask.Start();
+                            packFilesAndFoldersTask.Wait();
 
                             // Give user and update on changes
                             progressBarPack.Value = 100;
@@ -200,10 +177,10 @@ namespace WinFormsPaczkomat
                         FileStream createNewZip = File.Create(newZipFullName);
                         createNewZip.Close();
 
-                            // Create other task, which packs files and folders
-                            Task packFilesAndFoldersTask = new Task(new Action(PackFilesAndFolders));
-                            packFilesAndFoldersTask.Start();
-                            packFilesAndFoldersTask.Wait();
+                        // Create other task, which packs files and folders
+                        Task packFilesAndFoldersTask = new Task(new Action(PackFilesAndFolders));
+                        packFilesAndFoldersTask.Start();
+                        packFilesAndFoldersTask.Wait();
 
                         // Give user and update on changes
                         progressBarPack.Value = 100;
