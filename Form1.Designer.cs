@@ -301,6 +301,8 @@ namespace WinFormsPaczkomat
             this.comboBoxCompressionLevel.Location = new System.Drawing.Point(154, 109);
             this.comboBoxCompressionLevel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 8);
             this.comboBoxCompressionLevel.Name = "comboBoxCompressionLevel";
+            this.comboBoxCompressionLevel.Text = "średni";
+            this.comboBoxCompressionLevel.SelectedIndex = 1;
             this.comboBoxCompressionLevel.Size = new System.Drawing.Size(263, 23);
             this.comboBoxCompressionLevel.TabIndex = 32;
             this.comboBoxCompressionLevel.SelectedIndexChanged += new System.EventHandler(this.comboBoxCompressionLevel_SelectedIndexChanged);

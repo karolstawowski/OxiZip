@@ -4,7 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Threading;
 using System.Threading.Tasks;
-
+using System.Collections.Generic;
 
 namespace WinFormsPaczkomat
 {
@@ -75,6 +75,7 @@ namespace WinFormsPaczkomat
             using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
             {
                 folderBrowserDialog.ShowNewFolderButton = false;
+                folderBrowserDialog.SelectedPath = startingPath;
                 if (lastZipFolderLocation != null)
                 {
                     folderBrowserDialog.SelectedPath = lastZipFolderLocation;
@@ -82,6 +83,8 @@ namespace WinFormsPaczkomat
 
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
+                    lastZipFolderLocation = folderBrowserDialog.SelectedPath;
+
                     // Add location of selected folder to foldersToArchivePaths array
                     Array.Resize(ref foldersToArchivePaths, foldersToArchivePaths.Length + 1);
                     foldersToArchivePaths[foldersToArchivePaths.Length - 1] = folderBrowserDialog.SelectedPath;
@@ -107,7 +110,7 @@ namespace WinFormsPaczkomat
                 {
                     int indexOfFolderInFolderPathsArray = Array.IndexOf(foldersToArchivePaths, selectedItemString);
                     Array.Clear(foldersToArchivePaths, indexOfFolderInFolderPathsArray, 1);
-                    for (int i = listSelectedIndex; i < foldersToArchivePaths.Length - 1; i++)
+                    for (int i = indexOfFolderInFolderPathsArray; i < foldersToArchivePaths.Length - 1; i++)
                     {
                         foldersToArchivePaths[i] = foldersToArchivePaths[i + 1];
                     }
@@ -118,7 +121,7 @@ namespace WinFormsPaczkomat
                 {
                     int indexOfFileInFilePathsArray = Array.IndexOf(filesToArchiveFullNames, selectedItemString);
                     Array.Clear(filesToArchiveFullNames, indexOfFileInFilePathsArray, 1);
-                    for (int i = listSelectedIndex; i < filesToArchiveFullNames.Length - 1; i++)
+                    for (int i = indexOfFileInFilePathsArray; i < filesToArchiveFullNames.Length - 1; i++)
                     {
                         filesToArchiveFullNames[i] = filesToArchiveFullNames[i + 1];
                     }
@@ -148,8 +151,9 @@ namespace WinFormsPaczkomat
                 if (IsNameOfNewArchiveCorrect(newZipName) == true)
                 {
                     // Initialization of variables - load names of files and folders to archive
-                    filesToArchiveNames = GetNamesOfFiles().ToArray();
-                    foldersToArchiveNames = GetNamesOfFolders().ToArray();
+                    CheckIfFolderIsAddedAlready(foldersToArchiveNames);
+                    filesToArchiveNames = GetNamesOfFiles(filesToArchiveFullNames).ToArray();
+                    foldersToArchiveNames = GetNamesOfFolders(foldersToArchiveNames).ToArray();
                     newZipFullName = newZipFolderLocation + "\\" + newZipName + ".zip";
                     progressBarPack.Value = 20;
 

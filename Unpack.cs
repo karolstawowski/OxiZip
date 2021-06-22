@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
+using System.Collections.Generic;
 
 namespace WinFormsPaczkomat
 {
@@ -42,18 +43,20 @@ namespace WinFormsPaczkomat
         {
             if ((pathOfArch != String.Empty & pathOfArch != null) & (unpackTargetLocation != String.Empty & unpackTargetLocation != null))
             {
-                string nazwaPaczki = GetArchiveName();
-                Directory.CreateDirectory(unpackTargetLocation + "\\" + nazwaPaczki);
+                string archiveName = GetArchiveName();
+
+                Directory.CreateDirectory(unpackTargetLocation + "\\" + archiveName);
 
                 if (File.Exists(pathOfArch))
                 {
                     try
                     {
-                        ZipFile.ExtractToDirectory(pathOfArch, unpackTargetLocation + "\\" + nazwaPaczki);
+                        ZipFile.ExtractToDirectory(pathOfArch, unpackTargetLocation + "\\" + archiveName);
                     }
                     catch (Exception) { }
                     progressBarUnpack.Value = 100;
                 }
+                
                 UnpackDonePrompt();
                 UnpackDoneClear();
             }

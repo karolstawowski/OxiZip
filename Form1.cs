@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace WinFormsPaczkomat
 {
@@ -21,7 +22,7 @@ namespace WinFormsPaczkomat
         static string newZipName = "Archiwum";
 
         // Memorizing last created zip folder location
-        static string lastZipFolderLocation;
+        static string lastZipFolderLocation = null;
 
         static string fileExistsOption = String.Empty;
 

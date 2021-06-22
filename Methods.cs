@@ -8,7 +8,7 @@ namespace WinFormsPaczkomat
 {
     public partial class Form1
     {
-        private static List<string> GetNamesOfFiles()
+        private static List<string> GetNamesOfFiles(string[] filesToArchiveFullNames)
         {
             List<string> justNames = new List<string>();
             string[] holder;
@@ -19,7 +19,7 @@ namespace WinFormsPaczkomat
             }
             return justNames;
         }
-        private static List<string> GetNamesOfFolders()
+        private static List<string> GetNamesOfFolders(string[] foldersToArchiveNames)
         {
             List<string> justNames = new List<string>();
             string[] holder;
@@ -74,9 +74,9 @@ namespace WinFormsPaczkomat
             Array.Resize(ref filesToArchiveNames, 0);
             Array.Clear(filesToArchiveFullNames, 0, filesToArchiveFullNames.Length);
             Array.Resize(ref filesToArchiveFullNames, 0);
-            Array.Clear(foldersToArchivePaths, 0, filesToArchiveNames.Length);
+            Array.Clear(foldersToArchivePaths, 0, foldersToArchivePaths.Length);
             Array.Resize(ref foldersToArchivePaths, 0);
-            Array.Clear(foldersToArchiveNames, 0, filesToArchiveNames.Length);
+            Array.Clear(foldersToArchiveNames, 0, foldersToArchiveNames.Length);
             Array.Resize(ref foldersToArchiveNames, 0);
             newZipFullName = String.Empty;
             newZipName = String.Empty;
@@ -240,6 +240,19 @@ namespace WinFormsPaczkomat
                 }
             }
             PackFolders(folderPath, rootFolderName + "\\", newZipFullName);
+        }
+        static void CheckIfFolderIsAddedAlready(string[] foldersToArchiveNames)
+        {
+            foreach(string entry in foldersToArchiveNames)
+            {
+                for(int i=foldersToArchiveNames.Length; i>0;i--)
+                {
+                    if(entry == foldersToArchiveNames[i])
+                    {
+
+                    }
+                }
+            }
         }
     }
 }
