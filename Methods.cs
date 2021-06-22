@@ -10,69 +10,43 @@ namespace WinFormsPaczkomat
     {
         private static List<string> GetNamesOfFiles(List<string> filesToArchiveFullNames)
         {
-            List<string> justNames = new List<string>();
+            List<string> pathsNames = new List<string>();
             string[] holder;
-            foreach (string s in filesToArchiveFullNames)
+            foreach (string entry in filesToArchiveFullNames)
             {
-                holder = s.Split("\\");
-                justNames.Add(holder[^1]);
+                holder = entry.Split("\\");
+                pathsNames.Add(holder[^1]);
             }
-            return justNames;
+            return pathsNames;
         }
+
         private static List<string> GetNamesOfFolders(List<string> foldersToArchiveNames)
         {
-            List<string> justNames = new List<string>();
+            List<string> pathsNames = new List<string>();
             string[] holder;
-            foreach (string s in foldersToArchivePaths)
+            foreach (string entry in foldersToArchiveFullNames)
             {
-                holder = s.Split("\\");
-                justNames.Add(holder[^1]);
+                holder = entry.Split("\\");
+                pathsNames.Add(holder[^1]);
             }
-            return justNames;
+            return pathsNames;
         }
+
         private static string GetArchiveName()
         {
             string[] ingredients = pathOfArch.Split('\\');
-            string nameWithDot = ingredients[^1];
-            string[] ingredientsSeparatedByDot = nameWithDot.Split('.');
+            string nameWithExtension = ingredients[^1];
+            string[] ingredientsSeparatedByDot = nameWithExtension.Split('.');
+            // Get name of archive without its extension
             return ingredientsSeparatedByDot[0];
         }
-        private void PackDonePrompt_NewZip()
-        {
-            string message = "Archiwum zostało utworzone z powodzeniem.";
-            string caption = "Ukończono pakowanie";
-            MessageBoxButtons button = MessageBoxButtons.OK;
-            MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
-        }
-        private void PackDonePrompt_UpdatedZip()
-        {
-            string message = "Archiwum zostało zaktualizowane z powodzeniem.";
-            string caption = "Ukończono pakowanie";
-            MessageBoxButtons button = MessageBoxButtons.OK;
-            DialogResult result;
-            result = MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
-            if (result == System.Windows.Forms.DialogResult.OK)
-            {
-                progressBarPack.Value = 0;
-            }
-        }
-        private void UnpackDonePrompt()
-        {
-            string message = "Archiwum zostało rozpakowane z powodzeniem.";
-            string caption = "Ukończono rozpakowywanie";
-            MessageBoxButtons button = MessageBoxButtons.OK;
-            DialogResult result;
-            result = MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
-            if (result == System.Windows.Forms.DialogResult.OK)
-            {
-                progressBarPack.Value = 0;
-            }
-        }
+
         private void PackDoneClear()
         {
+            // Clear all lists
             filesToArchiveNames.Clear();
             filesToArchiveFullNames.Clear();
-            foldersToArchivePaths.Clear();
+            foldersToArchiveFullNames.Clear();
             foldersToArchiveNames.Clear();
             listOfFilesToPack.Items.Clear();
 
@@ -84,34 +58,7 @@ namespace WinFormsPaczkomat
             comboBoxCompressionLevel.Text = "średni";
             progressBarPack.Value = 0;
         }
-        private void UnpackDoneClear()
-        {
-            pathOfArch = String.Empty;
-            unpackTargetLocation = String.Empty;
-            textBoxUnpackSourceLocation.Text = "";
-            textBoxUnpackTargetLocation.Text = "";
-            progressBarUnpack.Value = 0;
-        }
-        private void FileExistsPrompt(ref string selectedOption)
-        {
-            string message = "Archwium o tej nazwie istnieje. Czy chcesz go nadpisać?\n\nWybór opcji \"Nie\" spowoduje dopisanie plików do archiwum.";
-            string caption = "Plik już istnieje";
-            MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
-            DialogResult result;
-            result = MessageBox.Show(message, caption, buttons, MessageBoxIcon.Warning);
-            if (result == System.Windows.Forms.DialogResult.Yes)
-            {
-                selectedOption = "overwrite";
-            }
-            else if (result == System.Windows.Forms.DialogResult.No)
-            {
-                selectedOption = "add";
-            }
-            else
-            {
-                progressBarPack.Value = 0;
-            };
-        }
+
         private static CompressionLevel SelectedCompressionLevel(int compressionNumber)
         {
             CompressionLevel compressionLevel;
@@ -128,6 +75,7 @@ namespace WinFormsPaczkomat
         }
         private static bool IsNameOfNewArchiveCorrect(string ArchiveName)
         {
+            // Forbidden characters have to be excluded from archive name
             char[] check = new char[] { '/', '\\', ':', '*', '?', '"', '<', '>', '|' };
             foreach (char character in check)
             {
@@ -139,13 +87,15 @@ namespace WinFormsPaczkomat
             }
             return true;
         }
-        public static void IncorrectNameOfArchivePrompt()
+        
+        // Packing methods in reversed hierarchical order
+
+        private static void CropParentFolderPath(ref string parentFolder)
         {
-            string message = "Wprowadzono niepoprawną nazwę dla nowego archiwum.";
-            string caption = "Niepoprawna nazwa archiwum";
-            MessageBoxButtons button = MessageBoxButtons.OK;
-            MessageBox.Show(message, caption, button, MessageBoxIcon.Error);
+            parentFolder = parentFolder.Remove(parentFolder.Length - 1);
+            parentFolder = parentFolder.Remove(parentFolder.LastIndexOf('\\') + 1);
         }
+
         private static void PackFolders(string folderPath, string parentFolder, string newZipFullName)
         {
             string folderPathWithInnerPath;
@@ -168,10 +118,7 @@ namespace WinFormsPaczkomat
                             }
                         }
                     }
-                    catch (UnauthorizedAccessException e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
+                    catch (Exception) { }
                     DirectoryInfo[] podkatalogi = di.GetDirectories();
                     if (podkatalogi[0].Exists)
                     {
@@ -199,31 +146,10 @@ namespace WinFormsPaczkomat
                 {
                     CropParentFolderPath(ref parentFolder);
                 }
+                catch (Exception) { }
             }
         }
-        private static void CropParentFolderPath(ref string parentFolder)
-        {
-            parentFolder = parentFolder.Remove(parentFolder.Length - 1);
-            parentFolder = parentFolder.Remove(parentFolder.LastIndexOf('\\') + 1);
-        }
-        private void PackFilesAndFolders()
-        {
-            using (FileStream newZip = new FileStream(newZipFullName, FileMode.Open))
-            {
-                using (ZipArchive archive = new ZipArchive(newZip, ZipArchiveMode.Update))
-                {
-                    for (int i = 0; i < filesToArchiveFullNames.Count; i++)
-                    {
-                        ZipArchiveEntry entry = archive.CreateEntryFromFile(filesToArchiveFullNames[i], filesToArchiveNames[i], SelectedCompressionLevel(compressionLevel));
-                    }
-                    archive.Dispose();
-                }
-            }
-            for (int i = 0; i < foldersToArchivePaths.Count; i++)
-            {
-                InsertElementsToArchive(foldersToArchivePaths[i]);
-            }
-        }
+        
         static void InsertElementsToArchive(string folderPath)
         {
             string rootFolderName = folderPath.Remove(0, (folderPath.LastIndexOf('\\') + 1));
@@ -238,9 +164,113 @@ namespace WinFormsPaczkomat
             }
             PackFolders(folderPath, rootFolderName + "\\", newZipFullName);
         }
-        static void CheckIfFolderIsAddedAlready(List<string> foldersToArchiveNames)
+        private void PackFilesAndFolders()
         {
-            // In progress
+            using (FileStream newZip = new FileStream(newZipFullName, FileMode.Open))
+            {
+                using (ZipArchive archive = new ZipArchive(newZip, ZipArchiveMode.Update))
+                {
+                    for (int i = 0; i < filesToArchiveFullNames.Count; i++)
+                    {
+                        ZipArchiveEntry entry = archive.CreateEntryFromFile(filesToArchiveFullNames[i], filesToArchiveNames[i], SelectedCompressionLevel(compressionLevel));
+                    }
+                    archive.Dispose();
+                }
+            }
+            for (int i = 0; i < foldersToArchiveFullNames.Count; i++)
+            {
+                InsertElementsToArchive(foldersToArchiveFullNames[i]);
+            }
+        }
+
+        static void CheckIfPathIsAddedAlready(ref List<string> listOfPaths)
+        {
+            for (int i = 0; i < listOfPaths.Count; i++)
+            {
+                while (listOfPaths.LastIndexOf(listOfPaths[i]) != i)
+                {
+                    listOfPaths.RemoveAt(listOfPaths.LastIndexOf(listOfPaths[i]));
+                }
+            }
+        }
+
+        /*
+         *  Archiving prompts
+         */
+        private void PackDonePrompt_NewZip()
+        {
+            string message = "Archiwum zostało utworzone z powodzeniem.";
+            string caption = "Ukończono pakowanie";
+            MessageBoxButtons button = MessageBoxButtons.OK;
+            MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
+        }
+
+        private void PackDonePrompt_UpdatedZip()
+        {
+            string message = "Archiwum zostało zaktualizowane z powodzeniem.";
+            string caption = "Ukończono pakowanie";
+            MessageBoxButtons button = MessageBoxButtons.OK;
+            DialogResult result;
+            result = MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                progressBarPack.Value = 0;
+            }
+        }
+
+        private void FileExistsPrompt(ref string selectedOption)
+        {
+            string message = "Archwium o tej nazwie istnieje. Czy chcesz go nadpisać?\n\nWybór opcji \"Nie\" spowoduje dopisanie plików do archiwum.";
+            string caption = "Plik już istnieje";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
+            DialogResult result;
+            result = MessageBox.Show(message, caption, buttons, MessageBoxIcon.Warning);
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                selectedOption = "overwrite";
+            }
+            else if (result == System.Windows.Forms.DialogResult.No)
+            {
+                selectedOption = "add";
+            }
+            else
+            {
+                progressBarPack.Value = 0;
+            };
+        }
+
+        public static void IncorrectNameOfArchivePrompt()
+        {
+            string message = "Wprowadzono niepoprawną nazwę dla nowego archiwum.";
+            string caption = "Niepoprawna nazwa archiwum";
+            MessageBoxButtons button = MessageBoxButtons.OK;
+            MessageBox.Show(message, caption, button, MessageBoxIcon.Error);
+        }
+
+        /*
+         *  Dearchiving methods
+         */
+
+        private void UnpackDonePrompt()
+        {
+            string message = "Archiwum zostało rozpakowane z powodzeniem.";
+            string caption = "Ukończono rozpakowywanie";
+            MessageBoxButtons button = MessageBoxButtons.OK;
+            DialogResult result;
+            result = MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                progressBarPack.Value = 0;
+            }
+        }
+
+        private void UnpackDoneClear()
+        {
+            pathOfArch = String.Empty;
+            unpackTargetLocation = String.Empty;
+            textBoxUnpackSourceLocation.Text = "";
+            textBoxUnpackTargetLocation.Text = "";
+            progressBarUnpack.Value = 0;
         }
     }
 }

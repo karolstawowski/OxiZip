@@ -6,31 +6,32 @@ namespace WinFormsPaczkomat
 {
     public partial class Form1 : Form
     {
-        // Initializing fields
+        // Initializing general usage fields
         static readonly string userName = Environment.UserName;
         static readonly string startingPath = @$"C:\Users\{userName}\Desktop\";
 
-        // Fields of arrays of files to compress
+        // Arrays of files to compress
         static List<string> filesToArchiveFullNames = new List<string>();
         static List<string> filesToArchiveNames = new List<string>();
-        static List<string> foldersToArchivePaths = new List<string>();
+        static List<string> foldersToArchiveFullNames = new List<string>();
         static List<string> foldersToArchiveNames = new List<string>();
 
-        // Compression-related fiels
+        // Archiving-related fiels
         static string newZipFullName;
         static string newZipFolderLocation;
         static string newZipName = "Archiwum";
 
-        // Memorizing last created zip folder location
+        // Memorizing last created zip folder location - increase user experience
         static string lastZipFolderLocation = null;
 
+        // Field containing selected by user option when archive with selected path exists already
         static string fileExistsOption = String.Empty;
 
-        // Decompression-related fields
+        // Dearchiving-related fields
         static string pathOfArch;
         static string unpackTargetLocation;
 
-        // Compression level field
+        // Compression level field - medium level as default
         static int compressionLevel = 1;
 
         public Form1()

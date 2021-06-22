@@ -77,7 +77,7 @@ namespace WinFormsPaczkomat
                     lastZipFolderLocation = folderBrowserDialog.SelectedPath;
 
                     // Add path of selected folder to foldersToArchivePaths and listOfFilesToPack lists
-                    foldersToArchivePaths.Add(folderBrowserDialog.SelectedPath);
+                    foldersToArchiveFullNames.Add(folderBrowserDialog.SelectedPath);
                     listOfFilesToPack.Items.Add(folderBrowserDialog.SelectedPath);
                 }
             }
@@ -97,7 +97,7 @@ namespace WinFormsPaczkomat
                 // Check if selected item is a directory
                 if (attr.HasFlag(FileAttributes.Directory))
                 {
-                    foldersToArchivePaths.Remove(selectedItemString);
+                    foldersToArchiveFullNames.Remove(selectedItemString);
                 }
                 // Then selected item is a file
                 else
@@ -113,24 +113,25 @@ namespace WinFormsPaczkomat
             {
                 listOfFilesToPack.Items.Clear();
                 filesToArchiveFullNames.Clear();
-                foldersToArchivePaths.Clear();
+                foldersToArchiveFullNames.Clear();
             }
         }
 
         private void buttonPackPack_Click(object sender, EventArgs e)
         {
             // Check if required data is delivered
-            if (newZipName != null & (filesToArchiveFullNames.Count != 0 | foldersToArchivePaths.Count != 0) & newZipFolderLocation != null & newZipFolderLocation != String.Empty)
+            if (newZipName != null & (filesToArchiveFullNames.Count != 0 | foldersToArchiveFullNames.Count != 0) & newZipFolderLocation != null & newZipFolderLocation != String.Empty)
             {
                 // Check if name of new archive meets the conditions
                 if (IsNameOfNewArchiveCorrect(newZipName) == true)
                 {
-                    // In progress
-                    CheckIfFolderIsAddedAlready(foldersToArchiveNames);
+                    // Check if paths of folders and files are repeated
+                    CheckIfPathIsAddedAlready(ref filesToArchiveFullNames);
+                    CheckIfPathIsAddedAlready(ref foldersToArchiveFullNames);
 
                     // Initialization of variables - load names of files and folders to archive
                     filesToArchiveNames = GetNamesOfFiles(filesToArchiveFullNames);
-                    foldersToArchiveNames = GetNamesOfFolders(foldersToArchiveNames);
+                    foldersToArchiveNames = GetNamesOfFolders(foldersToArchiveFullNames);
                     newZipFullName = newZipFolderLocation + "\\" + newZipName + ".zip";
                     progressBarPack.Value = 20;
 
