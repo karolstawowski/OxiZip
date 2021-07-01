@@ -40,7 +40,7 @@ namespace WinFormsPaczkomat
 
         private void buttonUnpackUnpack_Click(object sender, EventArgs e)
         {
-            if ((pathOfArch != String.Empty & pathOfArch != null) & (unpackTargetLocation != String.Empty & unpackTargetLocation != null))
+            if ((pathOfArch != String.Empty && pathOfArch != null) && (unpackTargetLocation != String.Empty && unpackTargetLocation != null))
             {
                 string archiveName = GetArchiveName();
                 string locationOfUnpackedFilesAndFolders = String.Empty;
@@ -53,7 +53,7 @@ namespace WinFormsPaczkomat
                 {
                     locationOfUnpackedFilesAndFolders = unpackTargetLocation + "\\" + archiveName;
                     Directory.CreateDirectory(locationOfUnpackedFilesAndFolders);
-                    
+
                 }
                 // Else create a folder with name of archive
                 else

@@ -125,7 +125,7 @@ namespace WinFormsPaczkomat
         private void buttonPackPack_Click(object sender, EventArgs e)
         {
             // Check if required data is delivered
-            if (newZipName != null & (filesToArchiveFullNames.Count != 0 | foldersToArchiveFullNames.Count != 0) & newZipFolderLocation != null & newZipFolderLocation != String.Empty)
+            if (newZipName != null && (filesToArchiveFullNames.Count != 0 || foldersToArchiveFullNames.Count != 0) && newZipFolderLocation != null && newZipFolderLocation != String.Empty)
             {
                 // Check if name of new archive meets the conditions
                 if (IsNameOfNewArchiveCorrect(newZipName))
@@ -135,8 +135,8 @@ namespace WinFormsPaczkomat
                     CheckIfPathIsAddedToListAlready(ref foldersToArchiveFullNames);
 
                     // Initialization of variables - load names of files and folders to archive
-                    filesToArchiveNames = GetNamesOfFiles(filesToArchiveFullNames);
-                    foldersToArchiveNames = GetNamesOfFolders(foldersToArchiveFullNames);
+                    filesToArchiveNames = GetNamesOfFiles();
+                    foldersToArchiveNames = GetNamesOfFolders();
                     // Full name of new archive
                     newZipFullName = newZipFolderLocation + "\\" + newZipName + ".zip";
 

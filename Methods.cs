@@ -12,10 +12,12 @@ namespace WinFormsPaczkomat
         //  Archiving methods
         //
 
-        private static List<string> GetNamesOfFiles(List<string> filesToArchiveFullNames)
+        private static List<string> GetNamesOfFiles()
         {
             List<string> pathsNames = new List<string>();
+
             string[] holder;
+
             foreach (string entry in filesToArchiveFullNames)
             {
                 holder = entry.Split("\\");
@@ -24,10 +26,12 @@ namespace WinFormsPaczkomat
             return pathsNames;
         }
 
-        private static List<string> GetNamesOfFolders(List<string> foldersToArchiveNames)
+        private static List<string> GetNamesOfFolders()
         {
             List<string> pathsNames = new List<string>();
+
             string[] holder;
+
             foreach (string entry in foldersToArchiveFullNames)
             {
                 holder = entry.Split("\\");
@@ -67,6 +71,7 @@ namespace WinFormsPaczkomat
         private static CompressionLevel SelectedCompressionLevel(int compressionNumber)
         {
             CompressionLevel compressionLevel;
+
             if (compressionNumber == 0)
             {
                 compressionLevel = CompressionLevel.NoCompression;
@@ -83,6 +88,7 @@ namespace WinFormsPaczkomat
         {
             // Forbidden characters have to be excluded from archive name
             char[] check = new char[] { '/', '\\', ':', '*', '?', '"', '<', '>', '|' };
+
             foreach (char character in check)
             {
                 if (ArchiveName.Contains(character) == true)
@@ -93,8 +99,6 @@ namespace WinFormsPaczkomat
             }
             return true;
         }
-        
-        // Packing methods in reversed hierarchical order
 
         private static void CropParentFolderPath(ref string parentFolder)
         {
@@ -105,7 +109,9 @@ namespace WinFormsPaczkomat
         private void PackFolders(string folderPath, string parentFolder, string newZipFullName)
         {
             string folderPathWithInnerPath;
+
             DirectoryInfo di = new DirectoryInfo(folderPath);
+
             if (di.Exists)
             {
                 try
@@ -127,7 +133,9 @@ namespace WinFormsPaczkomat
                         }
                     }
                     catch (Exception) { }
+
                     DirectoryInfo[] subdirectories = di.GetDirectories();
+
                     if (subdirectories[0].Exists)
                     {
                         foreach (DirectoryInfo directoryInfo in subdirectories)
@@ -159,7 +167,7 @@ namespace WinFormsPaczkomat
                 catch (Exception) { }
             }
         }
-        
+
         private void PackFilesAndFolders(string folderPath)
         {
             // rootFolderName = name of parent directory of folder to pack
@@ -216,7 +224,7 @@ namespace WinFormsPaczkomat
         //  Archiving prompts
         //
 
-        private void PackDonePrompt_NewZip()
+        private static void PackDonePrompt_NewZip()
         {
             string message = "Archiwum zostało utworzone z powodzeniem.";
             string caption = "Ukończono pakowanie";
@@ -224,7 +232,7 @@ namespace WinFormsPaczkomat
             MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
         }
 
-        private void PackDonePrompt_UpdatedZip()
+        private static void PackDonePrompt_UpdatedZip()
         {
             string message = "Archiwum zostało zaktualizowane z powodzeniem.";
             string caption = "Ukończono pakowanie";
@@ -232,7 +240,7 @@ namespace WinFormsPaczkomat
             MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
         }
 
-        private void FileExistsPrompt(ref string selectedOption)
+        private static void FileExistsPrompt(ref string selectedOption)
         {
             string message = "Archwium o tej nazwie istnieje. Czy chcesz go nadpisać?\n\nWybór opcji \"Nie\" spowoduje dopisanie plików do archiwum.";
             string caption = "Plik już istnieje";
@@ -258,11 +266,11 @@ namespace WinFormsPaczkomat
             MessageBox.Show(message, caption, button, MessageBoxIcon.Error);
         }
 
-        /*
-         *  Dearchiving methods
-         */
+        //
+        //  Dearchiving methods
+        //
 
-        private void UnpackDonePrompt()
+        private static void UnpackDonePrompt()
         {
             string message = "Archiwum zostało rozpakowane z powodzeniem.";
             string caption = "Ukończono rozpakowywanie";
