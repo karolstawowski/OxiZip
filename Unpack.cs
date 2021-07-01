@@ -6,7 +6,7 @@ using System.IO.Compression;
 namespace WinFormsPaczkomat
 {
     // Handling of dearchiving service
-    partial class Form1
+    partial class MainForm
     {
         private void buttonUnpackSelectToExtract_Click(object sender, EventArgs e)
         {
@@ -43,21 +43,44 @@ namespace WinFormsPaczkomat
             if ((pathOfArch != String.Empty & pathOfArch != null) & (unpackTargetLocation != String.Empty & unpackTargetLocation != null))
             {
                 string archiveName = GetArchiveName();
+                string locationOfUnpackedFilesAndFolders = String.Empty;
 
-                Directory.CreateDirectory(unpackTargetLocation + "\\" + archiveName);
+                // Give user an information that program works
+                Cursor.Current = Cursors.WaitCursor;
 
+                // Check if user gave a specific name for a new folder
+                if (textBoxUnpackFolderName.Text == "")
+                {
+                    locationOfUnpackedFilesAndFolders = unpackTargetLocation + "\\" + archiveName;
+                    Directory.CreateDirectory(locationOfUnpackedFilesAndFolders);
+                    
+                }
+                // Else create a folder with name of archive
+                else
+                {
+                    if (IsNameOfNewArchiveCorrect(textBoxUnpackFolderName.Text))
+                    {
+                        locationOfUnpackedFilesAndFolders = unpackTargetLocation + "\\" + textBoxUnpackFolderName.Text;
+                        Directory.CreateDirectory(locationOfUnpackedFilesAndFolders);
+                    }
+                }
+
+                // Unpack file
                 if (File.Exists(pathOfArch))
                 {
                     try
                     {
-                        ZipFile.ExtractToDirectory(pathOfArch, unpackTargetLocation + "\\" + archiveName);
+                        ZipFile.ExtractToDirectory(pathOfArch, locationOfUnpackedFilesAndFolders);
                     }
                     catch (Exception) { }
-                    progressBarUnpack.Value = 100;
                 }
 
-                UnpackDonePrompt();
+                // Restore custor status - program done its work
+                Cursor.Current = Cursors.Default;
+
+                // Give user an update on changes
                 UnpackDoneClear();
+                UnpackDonePrompt();
             }
         }
     }

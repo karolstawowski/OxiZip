@@ -42,7 +42,6 @@ C:\Pliki\Projekty\OxiZip\bin\Debug\net5.0-windows\OxiZip.dll
 C:\Pliki\Projekty\OxiZip\bin\Debug\net5.0-windows\ref\OxiZip.dll
 C:\Pliki\Projekty\OxiZip\bin\Debug\net5.0-windows\OxiZip.pdb
 C:\Pliki\Projekty\OxiZip\obj\Debug\net5.0-windows\WinFormsPaczkomat.csprojAssemblyReference.cache
-C:\Pliki\Projekty\OxiZip\obj\Debug\net5.0-windows\WinFormsPaczkomat.Form1.resources
 C:\Pliki\Projekty\OxiZip\obj\Debug\net5.0-windows\WinFormsPaczkomat.csproj.GenerateResource.cache
 C:\Pliki\Projekty\OxiZip\obj\Debug\net5.0-windows\WinFormsPaczkomat.GeneratedMSBuildEditorConfig.editorconfig
 C:\Pliki\Projekty\OxiZip\obj\Debug\net5.0-windows\WinFormsPaczkomat.AssemblyInfoInputs.cache
@@ -52,3 +51,4 @@ C:\Pliki\Projekty\OxiZip\obj\Debug\net5.0-windows\OxiZip.dll
 C:\Pliki\Projekty\OxiZip\obj\Debug\net5.0-windows\ref\OxiZip.dll
 C:\Pliki\Projekty\OxiZip\obj\Debug\net5.0-windows\OxiZip.pdb
 C:\Pliki\Projekty\OxiZip\obj\Debug\net5.0-windows\WinFormsPaczkomat.genruntimeconfig.cache
+C:\Pliki\Projekty\OxiZip\obj\Debug\net5.0-windows\WinFormsPaczkomat.MainForm.resources

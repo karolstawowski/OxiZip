@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5D0WD6GHnG9B6wEbTgrDgs0aaggRKvaDI3Co6h7XQLgxafev8UcPxFr/MkEKS2NxKT4Wj38CEVbhRYlCYQjBRw==",
+  "dgSpecHash": "iHzBBBObiCfWMeluKIwLMOUNXEOawz/pAgnNjYGUgPgioqeHFRYNs61yoHT9OHRDagfNC/e86gft9kBBUefU7A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\karol\\Desktop\\Programowanie\\C#\\OxiZip\\WinFormsPaczkomat.csproj",
+  "projectFilePath": "C:\\Pliki\\Projekty\\OxiZip\\WinFormsPaczkomat.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\karol\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\5.0.7\\microsoft.netcore.app.runtime.win-x64.5.0.7.nupkg.sha512",
     "C:\\Users\\karol\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\5.0.7\\microsoft.windowsdesktop.app.runtime.win-x64.5.0.7.nupkg.sha512",

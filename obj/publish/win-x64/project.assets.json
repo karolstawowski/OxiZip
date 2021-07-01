@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\karol\\Desktop\\Programowanie\\C#\\OxiZip\\WinFormsPaczkomat.csproj",
+      "projectUniqueName": "C:\\Pliki\\Projekty\\OxiZip\\WinFormsPaczkomat.csproj",
       "projectName": "OxiZip",
-      "projectPath": "C:\\Users\\karol\\Desktop\\Programowanie\\C#\\OxiZip\\WinFormsPaczkomat.csproj",
+      "projectPath": "C:\\Pliki\\Projekty\\OxiZip\\WinFormsPaczkomat.csproj",
       "packagesPath": "C:\\Users\\karol\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\karol\\Desktop\\Programowanie\\C#\\OxiZip\\obj\\publish\\win-x64\\",
+      "outputPath": "C:\\Pliki\\Projekty\\OxiZip\\obj\\publish\\win-x64\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"

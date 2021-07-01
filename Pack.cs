@@ -9,23 +9,25 @@ using System.Collections.Generic;
 namespace WinFormsPaczkomat
 {
     // Handling of archiving service
-    partial class Form1
+    partial class MainForm
     {
         private void buttonPackDestinationLocation_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
             {
                 folderBrowserDialog.ShowNewFolderButton = true;
-                if (lastZipFolderLocation != null)
+                folderBrowserDialog.SelectedPath = startingPath;
+
+                if (lastDestinationLocation != null)
                 {
-                    folderBrowserDialog.SelectedPath = lastZipFolderLocation;
+                    folderBrowserDialog.SelectedPath = lastDestinationLocation;
                 }
 
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
                     newZipFolderLocation = folderBrowserDialog.SelectedPath;
                     textBoxPackDestination.Text = folderBrowserDialog.SelectedPath;
-                    lastZipFolderLocation = folderBrowserDialog.SelectedPath;
+                    lastDestinationLocation = folderBrowserDialog.SelectedPath;
                 }
             }
         }
@@ -47,6 +49,7 @@ namespace WinFormsPaczkomat
                 openFileDialog.Filter = "All files (*.*)|*.*";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
+                openFileDialog.DereferenceLinks = false;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -66,14 +69,15 @@ namespace WinFormsPaczkomat
             {
                 folderBrowserDialog.ShowNewFolderButton = false;
                 folderBrowserDialog.SelectedPath = startingPath;
-                if (lastZipFolderLocation != null)
+
+                if (lastFolderLocation != null)
                 {
-                    folderBrowserDialog.SelectedPath = lastZipFolderLocation;
+                    folderBrowserDialog.SelectedPath = lastFolderLocation;
                 }
 
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
-                    lastZipFolderLocation = folderBrowserDialog.SelectedPath;
+                    lastFolderLocation = folderBrowserDialog.SelectedPath;
 
                     // Add path of selected folder to foldersToArchivePaths and listOfFilesToPack lists
                     foldersToArchiveFullNames.Add(folderBrowserDialog.SelectedPath);
@@ -85,12 +89,14 @@ namespace WinFormsPaczkomat
         private void buttonPackDeleteSelectedItem_Click(object sender, EventArgs e)
         {
             int listSelectedIndex = listOfFilesToPack.SelectedIndex;
-            string selectedItemString = listOfFilesToPack.SelectedItem.ToString();
-            FileAttributes attr = File.GetAttributes(selectedItemString);
 
             // Check if any element of list is selected
             if (listSelectedIndex != -1)
             {
+                string selectedItemString = listOfFilesToPack.SelectedItem.ToString();
+                // Get attribute of selected entry
+                FileAttributes attr = File.GetAttributes(selectedItemString);
+
                 listOfFilesToPack.Items.RemoveAt(listSelectedIndex);
 
                 // Check if selected item is a directory
@@ -108,7 +114,7 @@ namespace WinFormsPaczkomat
 
         private void buttonPackDeleteAllItems_Click(object sender, EventArgs e)
         {
-            if (filesToArchiveFullNames.Count != 0 || foldersToArchiveNames.Count != 0)
+            if (filesToArchiveFullNames.Count != 0 || foldersToArchiveFullNames.Count != 0)
             {
                 listOfFilesToPack.Items.Clear();
                 filesToArchiveFullNames.Clear();
@@ -122,17 +128,17 @@ namespace WinFormsPaczkomat
             if (newZipName != null & (filesToArchiveFullNames.Count != 0 | foldersToArchiveFullNames.Count != 0) & newZipFolderLocation != null & newZipFolderLocation != String.Empty)
             {
                 // Check if name of new archive meets the conditions
-                if (IsNameOfNewArchiveCorrect(newZipName) == true)
+                if (IsNameOfNewArchiveCorrect(newZipName))
                 {
                     // Check if paths of folders and files are repeated
-                    CheckIfPathIsAddedAlready(ref filesToArchiveFullNames);
-                    CheckIfPathIsAddedAlready(ref foldersToArchiveFullNames);
+                    CheckIfPathIsAddedToListAlready(ref filesToArchiveFullNames);
+                    CheckIfPathIsAddedToListAlready(ref foldersToArchiveFullNames);
 
                     // Initialization of variables - load names of files and folders to archive
                     filesToArchiveNames = GetNamesOfFiles(filesToArchiveFullNames);
                     foldersToArchiveNames = GetNamesOfFolders(foldersToArchiveFullNames);
+                    // Full name of new archive
                     newZipFullName = newZipFolderLocation + "\\" + newZipName + ".zip";
-                    progressBarPack.Value = 20;
 
                     // If target archive with given name exists
                     if (File.Exists(newZipFullName))
@@ -141,51 +147,72 @@ namespace WinFormsPaczkomat
                         FileExistsPrompt(ref fileExistsOption);
                         if (fileExistsOption == "overwrite")
                         {
+                            // Give user an information that program works
+                            Cursor.Current = Cursors.WaitCursor;
+
                             // Delete a file and create new one
                             File.Delete(newZipFullName);
                             FileStream createNewZip = File.Create(newZipFullName);
                             createNewZip.Close();
 
-                            // Create other task, which packs files and folders
-                            Task packFilesAndFoldersTask = new Task(new Action(PackFilesAndFolders));
-                            packFilesAndFoldersTask.Start();
-                            packFilesAndFoldersTask.Wait();
+                            // Pack selected folders and files
+                            InitialPacking();
+                            // Here's version with other task, which doesn't allow to show packed location at the moment in UI
+                            //Task packFilesAndFoldersTask = new Task(new Action(InitialPacking));
+                            //packFilesAndFoldersTask.Start();
+                            //packFilesAndFoldersTask.Wait();
 
-                            // Give user and update on changes
-                            progressBarPack.Value = 100;
-                            PackDonePrompt_NewZip();
+                            // Restore custor status - program done its work
+                            Cursor.Current = Cursors.Default;
+
+                            // Give user an update on changes
                             PackDoneClear();
+                            PackDonePrompt_NewZip();
                         }
                         else if (fileExistsOption == "add")
                         {
-                            // Create other task, which packs files and folders
-                            Task packFilesAndFoldersTask = new Task(new Action(PackFilesAndFolders));
-                            packFilesAndFoldersTask.Start();
-                            packFilesAndFoldersTask.Wait();
+                            // Give user an information that program works
+                            Cursor.Current = Cursors.WaitCursor;
 
-                            // Give user and update on changes
-                            progressBarPack.Value = 100;
-                            PackDonePrompt_UpdatedZip();
+                            // Pack selected folders and files
+                            InitialPacking();
+                            // Here's version with other task, which doesn't allow to show packed location at the moment in UI
+                            //Task packFilesAndFoldersTask = new Task(new Action(InitialPacking));
+                            //packFilesAndFoldersTask.Start();
+                            //packFilesAndFoldersTask.Wait();
+
+                            // Restore custor status - program done its work
+                            Cursor.Current = Cursors.Default;
+
+                            // Give user an update on changes
                             PackDoneClear();
+                            PackDonePrompt_UpdatedZip();
                         }
                         else { };
                     }
-                    // If target archive doesn't exist
+                    // If target archive doesn't exist yet
                     else
                     {
+                        // Give user an information that program works
+                        Cursor.Current = Cursors.WaitCursor;
+
                         // Create a new archive
                         FileStream createNewZip = File.Create(newZipFullName);
                         createNewZip.Close();
 
-                        // Create other task, which packs files and folders
-                        Task packFilesAndFoldersTask = new Task(new Action(PackFilesAndFolders));
-                        packFilesAndFoldersTask.Start();
-                        packFilesAndFoldersTask.Wait();
+                        // Pack selected folders and files
+                        InitialPacking();
+                        // Here's version with other task, which doesn't allow to show packed location at the moment in UI
+                        //Task packFilesAndFoldersTask = new Task(new Action(InitialPacking));
+                        //packFilesAndFoldersTask.Start();
+                        //packFilesAndFoldersTask.Wait();
 
-                        // Give user and update on changes
-                        progressBarPack.Value = 100;
-                        PackDonePrompt_NewZip();
+                        // Restore custor status - program done its work
+                        Cursor.Current = Cursors.Default;
+
+                        // Give user an update on changes
                         PackDoneClear();
+                        PackDonePrompt_NewZip();
                     }
                 }
             }
