@@ -1,7 +1,7 @@
 # OxiZip
 ![Language](https://img.shields.io/badge/language-C%23-0E15C0)
 ![Number of lines](https://img.shields.io/tokei/lines/github/karolstawowski/OxiZip)
-![Version](https://img.shields.io/badge/version-1.0.1.0-0E15C0) <br>
+![Version](https://img.shields.io/badge/version-1.1.0.0-0E15C0) <br>
 
 ## Description
 OxiZip is a file archiver for Windows platform (x64 only). Program allows you to create and unpack ZIP archives.
@@ -10,11 +10,17 @@ OxiZip is a file archiver for Windows platform (x64 only). Program allows you to
 
 ## Installation
 
-Program is made portable - you don't have to install it. To use program, download a zip file: <a href="https://github.com/karolstawowski/OxiZip/raw/master/Portable/OxiZipPortable.zip">OxiZipPortable.zip</a>, which contains all necessary files. After unpacking an archive, you can use program by starting OxiZip.exe.
+OxiZip is portable - you don't have to install it. To use program, download a newest version zip file from section below, which contains all necessary files. After unpacking an archive, you can use program by starting OxiZip.exe.
 
 Yes, I made this archive using OxiZip. 
 
 And yes, you can unpack it using OxiZip located inside.
+
+## Releases
+| Version | Link |
+|---------|------|
+| 1.1 | [Download](https://github.com/karolstawowski/OxiZip/raw/master/Releases/OxiZip_1.1.zip) |
+| 1.0 | [Download](https://github.com/karolstawowski/OxiZip/raw/master/Releases/OxiZip_1.0.zip) |
 
 ## Usage
 
