@@ -138,8 +138,8 @@ namespace WinFormsPaczkomat
         {
             // Get names of items to pack
             string[] itemsToPack = (string[])e.Data.GetData(DataFormats.FileDrop);
-            
-            for(int i=0;i<itemsToPack.Length;i++)
+
+            for (int i = 0; i < itemsToPack.Length; i++)
             {
                 // Get attribute of item, then check if item is a directory or file
                 FileAttributes attr = File.GetAttributes(itemsToPack[i]);
