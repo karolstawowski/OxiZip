@@ -47,7 +47,7 @@ namespace WinFormsPaczkomat
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.listOfFilesToPack = new System.Windows.Forms.ListBox();
+            this.listOfItemsToPack = new System.Windows.Forms.ListBox();
             this.buttonPackDeleteAllItems = new System.Windows.Forms.Button();
             this.buttonPackDeleteSelectedItem = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -217,14 +217,17 @@ namespace WinFormsPaczkomat
             this.label6.TabIndex = 110;
             this.label6.Text = "label6";
             // 
-            // listOfFilesToPack
+            // listOfItemsToPack
             // 
-            this.listOfFilesToPack.FormattingEnabled = true;
-            this.listOfFilesToPack.ItemHeight = 15;
-            this.listOfFilesToPack.Location = new System.Drawing.Point(15, 163);
-            this.listOfFilesToPack.Name = "listOfFilesToPack";
-            this.listOfFilesToPack.Size = new System.Drawing.Size(402, 124);
-            this.listOfFilesToPack.TabIndex = 106;
+            this.listOfItemsToPack.AllowDrop = true;
+            this.listOfItemsToPack.FormattingEnabled = true;
+            this.listOfItemsToPack.ItemHeight = 15;
+            this.listOfItemsToPack.Location = new System.Drawing.Point(15, 163);
+            this.listOfItemsToPack.Name = "listOfItemsToPack";
+            this.listOfItemsToPack.Size = new System.Drawing.Size(402, 124);
+            this.listOfItemsToPack.TabIndex = 106;
+            this.listOfItemsToPack.DragDrop += new System.Windows.Forms.DragEventHandler(this.listOfItemsToPack_DragDrop);
+            this.listOfItemsToPack.DragEnter += new System.Windows.Forms.DragEventHandler(this.listOfItemsToPack_DragEnter);
             // 
             // buttonPackDeleteAllItems
             // 
@@ -368,6 +371,7 @@ namespace WinFormsPaczkomat
             // 
             // MainForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 421);
@@ -385,7 +389,7 @@ namespace WinFormsPaczkomat
             this.Controls.Add(this.label7);
             this.Controls.Add(this.buttonPackDeleteSelectedItem);
             this.Controls.Add(this.buttonPackDeleteAllItems);
-            this.Controls.Add(this.listOfFilesToPack);
+            this.Controls.Add(this.listOfItemsToPack);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -432,7 +436,7 @@ namespace WinFormsPaczkomat
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ListBox listOfFilesToPack;
+        private System.Windows.Forms.ListBox listOfItemsToPack;
         private System.Windows.Forms.Button buttonPackDeleteAllItems;
         private System.Windows.Forms.Button buttonPackDeleteSelectedItem;
         private System.Windows.Forms.Label label7;

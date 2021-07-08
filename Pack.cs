@@ -57,7 +57,7 @@ namespace WinFormsPaczkomat
                     foreach (string s in openFileDialog.FileNames)
                     {
                         filesToArchiveFullNames.Add(s);
-                        listOfFilesToPack.Items.Add(s);
+                        listOfItemsToPack.Items.Add(s);
                     }
                 }
             }
@@ -81,23 +81,23 @@ namespace WinFormsPaczkomat
 
                     // Add path of selected folder to foldersToArchivePaths and listOfFilesToPack lists
                     foldersToArchiveFullNames.Add(folderBrowserDialog.SelectedPath);
-                    listOfFilesToPack.Items.Add(folderBrowserDialog.SelectedPath);
+                    listOfItemsToPack.Items.Add(folderBrowserDialog.SelectedPath);
                 }
             }
         }
 
         private void buttonPackDeleteSelectedItem_Click(object sender, EventArgs e)
         {
-            int listSelectedIndex = listOfFilesToPack.SelectedIndex;
+            int listSelectedIndex = listOfItemsToPack.SelectedIndex;
 
             // Check if any element of list is selected
             if (listSelectedIndex != -1)
             {
-                string selectedItemString = listOfFilesToPack.SelectedItem.ToString();
+                string selectedItemString = listOfItemsToPack.SelectedItem.ToString();
                 // Get attribute of selected entry
                 FileAttributes attr = File.GetAttributes(selectedItemString);
 
-                listOfFilesToPack.Items.RemoveAt(listSelectedIndex);
+                listOfItemsToPack.Items.RemoveAt(listSelectedIndex);
 
                 // Check if selected item is a directory
                 if (attr.HasFlag(FileAttributes.Directory))
@@ -116,9 +116,45 @@ namespace WinFormsPaczkomat
         {
             if (filesToArchiveFullNames.Count != 0 || foldersToArchiveFullNames.Count != 0)
             {
-                listOfFilesToPack.Items.Clear();
+                listOfItemsToPack.Items.Clear();
                 filesToArchiveFullNames.Clear();
                 foldersToArchiveFullNames.Clear();
+            }
+        }
+
+        // Drag and drop functionality for list of items to pack - requires DragEnter, DragDrop and AllowDrop
+        private void listOfItemsToPack_DragEnter(object sender, DragEventArgs e)
+        {
+            // Copy file/folder information
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void listOfItemsToPack_DragDrop(object sender, DragEventArgs e)
+        {
+            // Get names of items to pack
+            string[] itemsToPack = (string[])e.Data.GetData(DataFormats.FileDrop);
+            
+            for(int i=0;i<itemsToPack.Length;i++)
+            {
+                // Get attribute of item, then check if item is a directory or file
+                FileAttributes attr = File.GetAttributes(itemsToPack[i]);
+
+                // Add items to listOfItemsToPack 
+                listOfItemsToPack.Items.Add(itemsToPack[i]);
+
+                if (attr.HasFlag(FileAttributes.Directory))
+                {
+                    foldersToArchiveFullNames.Add(itemsToPack[i]);
+                }
+                else
+                {
+                    filesToArchiveFullNames.Add(itemsToPack[i]);
+                }
             }
         }
 

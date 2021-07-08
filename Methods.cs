@@ -56,7 +56,7 @@ namespace WinFormsPaczkomat
             filesToArchiveFullNames.Clear();
             foldersToArchiveFullNames.Clear();
             foldersToArchiveNames.Clear();
-            listOfFilesToPack.Items.Clear();
+            listOfItemsToPack.Items.Clear();
 
             // Set starting values to variables
             newZipFullName = String.Empty;
