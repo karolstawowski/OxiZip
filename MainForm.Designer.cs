@@ -62,6 +62,9 @@ namespace WinFormsPaczkomat
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxUnpackFolderName = new System.Windows.Forms.TextBox();
+            this.helpStrip = new System.Windows.Forms.StatusStrip();
+            this.helpStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.helpStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonPackSelectFiles
@@ -74,16 +77,20 @@ namespace WinFormsPaczkomat
             this.buttonPackSelectFiles.Text = "Dodaj pliki";
             this.buttonPackSelectFiles.UseVisualStyleBackColor = true;
             this.buttonPackSelectFiles.Click += new System.EventHandler(this.buttonPackSelectFiles_Click);
+            this.buttonPackSelectFiles.MouseEnter += new System.EventHandler(this.buttonPackSelectFiles_MouseEnter);
+            this.buttonPackSelectFiles.MouseLeave += new System.EventHandler(this.buttonPackSelectFiles_MouseLeave);
             // 
             // buttonPackPack
             // 
-            this.buttonPackPack.Location = new System.Drawing.Point(317, 345);
+            this.buttonPackPack.Location = new System.Drawing.Point(224, 345);
             this.buttonPackPack.Name = "buttonPackPack";
-            this.buttonPackPack.Size = new System.Drawing.Size(100, 30);
+            this.buttonPackPack.Size = new System.Drawing.Size(193, 30);
             this.buttonPackPack.TabIndex = 8;
             this.buttonPackPack.Text = "Pakuj";
             this.buttonPackPack.UseVisualStyleBackColor = true;
             this.buttonPackPack.Click += new System.EventHandler(this.buttonPackPack_Click);
+            this.buttonPackPack.MouseEnter += new System.EventHandler(this.buttonPackPack_MouseEnter);
+            this.buttonPackPack.MouseLeave += new System.EventHandler(this.buttonPackPack_MouseLeave);
             // 
             // label1
             // 
@@ -97,13 +104,15 @@ namespace WinFormsPaczkomat
             // 
             // buttonPackDestinationLocation
             // 
-            this.buttonPackDestinationLocation.Location = new System.Drawing.Point(390, 45);
+            this.buttonPackDestinationLocation.Location = new System.Drawing.Point(393, 45);
             this.buttonPackDestinationLocation.Name = "buttonPackDestinationLocation";
-            this.buttonPackDestinationLocation.Size = new System.Drawing.Size(27, 23);
+            this.buttonPackDestinationLocation.Size = new System.Drawing.Size(28, 23);
             this.buttonPackDestinationLocation.TabIndex = 1;
             this.buttonPackDestinationLocation.Text = "...";
             this.buttonPackDestinationLocation.UseVisualStyleBackColor = true;
             this.buttonPackDestinationLocation.Click += new System.EventHandler(this.buttonPackDestinationLocation_Click);
+            this.buttonPackDestinationLocation.MouseEnter += new System.EventHandler(this.buttonPackDestinationLocation_MouseEnter);
+            this.buttonPackDestinationLocation.MouseLeave += new System.EventHandler(this.buttonPackDestinationLocation_MouseLeave);
             // 
             // textBoxPackDestination
             // 
@@ -111,18 +120,22 @@ namespace WinFormsPaczkomat
             this.textBoxPackDestination.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.textBoxPackDestination.Name = "textBoxPackDestination";
             this.textBoxPackDestination.ReadOnly = true;
-            this.textBoxPackDestination.Size = new System.Drawing.Size(230, 23);
+            this.textBoxPackDestination.Size = new System.Drawing.Size(233, 23);
             this.textBoxPackDestination.TabIndex = 112;
+            this.textBoxPackDestination.MouseEnter += new System.EventHandler(this.textBoxPackDestination_MouseEnter);
+            this.textBoxPackDestination.MouseLeave += new System.EventHandler(this.textBoxPackDestination_MouseLeave);
             // 
             // textBoxPackName
             // 
             this.textBoxPackName.Location = new System.Drawing.Point(154, 77);
             this.textBoxPackName.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.textBoxPackName.Name = "textBoxPackName";
-            this.textBoxPackName.Size = new System.Drawing.Size(263, 23);
+            this.textBoxPackName.Size = new System.Drawing.Size(266, 23);
             this.textBoxPackName.TabIndex = 2;
             this.textBoxPackName.Text = "Archiwum";
             this.textBoxPackName.TextChanged += new System.EventHandler(this.textBoxPackName_TextChanged);
+            this.textBoxPackName.MouseEnter += new System.EventHandler(this.textBoxPackName_MouseEnter);
+            this.textBoxPackName.MouseLeave += new System.EventHandler(this.textBoxPackName_MouseLeave);
             // 
             // label2
             // 
@@ -141,36 +154,44 @@ namespace WinFormsPaczkomat
             this.textBoxUnpackSourceLocation.ReadOnly = true;
             this.textBoxUnpackSourceLocation.Size = new System.Drawing.Size(230, 23);
             this.textBoxUnpackSourceLocation.TabIndex = 113;
+            this.textBoxUnpackSourceLocation.MouseEnter += new System.EventHandler(this.textBoxUnpackSourceLocation_MouseEnter);
+            this.textBoxUnpackSourceLocation.MouseLeave += new System.EventHandler(this.textBoxUnpackSourceLocation_MouseLeave);
             // 
             // buttonUnpackSelectToExtract
             // 
             this.buttonUnpackSelectToExtract.Location = new System.Drawing.Point(825, 44);
             this.buttonUnpackSelectToExtract.Name = "buttonUnpackSelectToExtract";
-            this.buttonUnpackSelectToExtract.Size = new System.Drawing.Size(27, 23);
+            this.buttonUnpackSelectToExtract.Size = new System.Drawing.Size(28, 23);
             this.buttonUnpackSelectToExtract.TabIndex = 9;
             this.buttonUnpackSelectToExtract.Text = "...";
             this.buttonUnpackSelectToExtract.UseVisualStyleBackColor = true;
             this.buttonUnpackSelectToExtract.Click += new System.EventHandler(this.buttonUnpackSelectToExtract_Click);
+            this.buttonUnpackSelectToExtract.MouseEnter += new System.EventHandler(this.buttonUnpackSelectToExtract_MouseEnter);
+            this.buttonUnpackSelectToExtract.MouseLeave += new System.EventHandler(this.buttonUnpackSelectToExtract_MouseLeave);
             // 
             // buttonUnpackUnpack
             // 
-            this.buttonUnpackUnpack.Location = new System.Drawing.Point(752, 345);
+            this.buttonUnpackUnpack.Location = new System.Drawing.Point(660, 345);
             this.buttonUnpackUnpack.Name = "buttonUnpackUnpack";
-            this.buttonUnpackUnpack.Size = new System.Drawing.Size(100, 30);
+            this.buttonUnpackUnpack.Size = new System.Drawing.Size(193, 30);
             this.buttonUnpackUnpack.TabIndex = 11;
             this.buttonUnpackUnpack.Text = "Wypakuj";
             this.buttonUnpackUnpack.UseVisualStyleBackColor = true;
             this.buttonUnpackUnpack.Click += new System.EventHandler(this.buttonUnpackUnpack_Click);
+            this.buttonUnpackUnpack.MouseEnter += new System.EventHandler(this.buttonUnpackUnpack_MouseEnter);
+            this.buttonUnpackUnpack.MouseLeave += new System.EventHandler(this.buttonUnpackUnpack_MouseLeave);
             // 
             // buttonUnpackDestinationLocation
             // 
             this.buttonUnpackDestinationLocation.Location = new System.Drawing.Point(825, 109);
             this.buttonUnpackDestinationLocation.Name = "buttonUnpackDestinationLocation";
-            this.buttonUnpackDestinationLocation.Size = new System.Drawing.Size(27, 23);
+            this.buttonUnpackDestinationLocation.Size = new System.Drawing.Size(28, 23);
             this.buttonUnpackDestinationLocation.TabIndex = 10;
             this.buttonUnpackDestinationLocation.Text = "...";
             this.buttonUnpackDestinationLocation.UseVisualStyleBackColor = true;
             this.buttonUnpackDestinationLocation.Click += new System.EventHandler(this.buttonUnpackTargetLocation_Click);
+            this.buttonUnpackDestinationLocation.MouseEnter += new System.EventHandler(this.buttonUnpackDestinationLocation_MouseEnter);
+            this.buttonUnpackDestinationLocation.MouseLeave += new System.EventHandler(this.buttonUnpackDestinationLocation_MouseLeave);
             // 
             // textBoxUnpackTargetLocation
             // 
@@ -179,6 +200,8 @@ namespace WinFormsPaczkomat
             this.textBoxUnpackTargetLocation.ReadOnly = true;
             this.textBoxUnpackTargetLocation.Size = new System.Drawing.Size(230, 23);
             this.textBoxUnpackTargetLocation.TabIndex = 114;
+            this.textBoxUnpackTargetLocation.MouseEnter += new System.EventHandler(this.textBoxUnpackTargetLocation_MouseEnter);
+            this.textBoxUnpackTargetLocation.MouseLeave += new System.EventHandler(this.textBoxUnpackTargetLocation_MouseLeave);
             // 
             // label3
             // 
@@ -228,6 +251,8 @@ namespace WinFormsPaczkomat
             this.listOfItemsToPack.TabIndex = 106;
             this.listOfItemsToPack.DragDrop += new System.Windows.Forms.DragEventHandler(this.listOfItemsToPack_DragDrop);
             this.listOfItemsToPack.DragEnter += new System.Windows.Forms.DragEventHandler(this.listOfItemsToPack_DragEnter);
+            this.listOfItemsToPack.MouseEnter += new System.EventHandler(this.listOfItemsToPack_MouseEnter);
+            this.listOfItemsToPack.MouseLeave += new System.EventHandler(this.listOfItemsToPack_MouseLeave);
             // 
             // buttonPackDeleteAllItems
             // 
@@ -239,6 +264,8 @@ namespace WinFormsPaczkomat
             this.buttonPackDeleteAllItems.Text = "Usuń wszystkie";
             this.buttonPackDeleteAllItems.UseVisualStyleBackColor = true;
             this.buttonPackDeleteAllItems.Click += new System.EventHandler(this.buttonPackDeleteAllItems_Click);
+            this.buttonPackDeleteAllItems.MouseEnter += new System.EventHandler(this.buttonPackDeleteAllItems_MouseEnter);
+            this.buttonPackDeleteAllItems.MouseLeave += new System.EventHandler(this.buttonPackDeleteAllItems_MouseLeave);
             // 
             // buttonPackDeleteSelectedItem
             // 
@@ -249,6 +276,8 @@ namespace WinFormsPaczkomat
             this.buttonPackDeleteSelectedItem.Text = "Usuń";
             this.buttonPackDeleteSelectedItem.UseVisualStyleBackColor = true;
             this.buttonPackDeleteSelectedItem.Click += new System.EventHandler(this.buttonPackDeleteSelectedItem_Click);
+            this.buttonPackDeleteSelectedItem.MouseEnter += new System.EventHandler(this.buttonPackDeleteSelectedItem_MouseEnter);
+            this.buttonPackDeleteSelectedItem.MouseLeave += new System.EventHandler(this.buttonPackDeleteSelectedItem_MouseLeave);
             // 
             // label7
             // 
@@ -291,9 +320,11 @@ namespace WinFormsPaczkomat
             this.comboBoxCompressionLevel.Location = new System.Drawing.Point(154, 109);
             this.comboBoxCompressionLevel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 8);
             this.comboBoxCompressionLevel.Name = "comboBoxCompressionLevel";
-            this.comboBoxCompressionLevel.Size = new System.Drawing.Size(263, 23);
+            this.comboBoxCompressionLevel.Size = new System.Drawing.Size(266, 23);
             this.comboBoxCompressionLevel.TabIndex = 3;
             this.comboBoxCompressionLevel.SelectedIndexChanged += new System.EventHandler(this.comboBoxCompressionLevel_SelectedIndexChanged);
+            this.comboBoxCompressionLevel.MouseEnter += new System.EventHandler(this.comboBoxCompressionLevel_MouseEnter);
+            this.comboBoxCompressionLevel.MouseLeave += new System.EventHandler(this.comboBoxCompressionLevel_MouseLeave);
             // 
             // label11
             // 
@@ -325,11 +356,13 @@ namespace WinFormsPaczkomat
             this.buttonPackSelectFolders.Text = "Dodaj foldery";
             this.buttonPackSelectFolders.UseVisualStyleBackColor = true;
             this.buttonPackSelectFolders.Click += new System.EventHandler(this.buttonPackSelectFolders_Click);
+            this.buttonPackSelectFolders.MouseEnter += new System.EventHandler(this.buttonPackSelectFolders_MouseEnter);
+            this.buttonPackSelectFolders.MouseLeave += new System.EventHandler(this.buttonPackSelectFolders_MouseLeave);
             // 
             // labelPackingFileName
             // 
             this.labelPackingFileName.AutoSize = true;
-            this.labelPackingFileName.Location = new System.Drawing.Point(151, 397);
+            this.labelPackingFileName.Location = new System.Drawing.Point(151, 395);
             this.labelPackingFileName.MaximumSize = new System.Drawing.Size(704, 15);
             this.labelPackingFileName.Name = "labelPackingFileName";
             this.labelPackingFileName.Size = new System.Drawing.Size(7, 15);
@@ -339,7 +372,7 @@ namespace WinFormsPaczkomat
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(10, 397);
+            this.label12.Location = new System.Drawing.Point(10, 395);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(139, 15);
             this.label12.TabIndex = 117;
@@ -368,13 +401,31 @@ namespace WinFormsPaczkomat
             this.textBoxUnpackFolderName.Name = "textBoxUnpackFolderName";
             this.textBoxUnpackFolderName.Size = new System.Drawing.Size(263, 23);
             this.textBoxUnpackFolderName.TabIndex = 120;
+            this.textBoxUnpackFolderName.MouseEnter += new System.EventHandler(this.textBoxUnpackFolderName_MouseEnter);
+            this.textBoxUnpackFolderName.MouseLeave += new System.EventHandler(this.textBoxUnpackFolderName_MouseLeave);
+            // 
+            // helpStrip
+            // 
+            this.helpStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpStripLabel});
+            this.helpStrip.Location = new System.Drawing.Point(0, 419);
+            this.helpStrip.Name = "helpStrip";
+            this.helpStrip.Size = new System.Drawing.Size(864, 22);
+            this.helpStrip.SizingGrip = false;
+            this.helpStrip.TabIndex = 121;
+            // 
+            // helpStripLabel
+            // 
+            this.helpStripLabel.Name = "helpStripLabel";
+            this.helpStripLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(864, 421);
+            this.ClientSize = new System.Drawing.Size(864, 441);
+            this.Controls.Add(this.helpStrip);
             this.Controls.Add(this.textBoxUnpackFolderName);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -413,6 +464,8 @@ namespace WinFormsPaczkomat
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OxiZip";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.helpStrip.ResumeLayout(false);
+            this.helpStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -451,6 +504,8 @@ namespace WinFormsPaczkomat
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBoxUnpackFolderName;
+        private System.Windows.Forms.StatusStrip helpStrip;
+        private System.Windows.Forms.ToolStripStatusLabel helpStripLabel;
     }
 }
 
