@@ -6,11 +6,16 @@
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>OxiZip</AssemblyName>
     <ApplicationIcon>mclaren.ico</ApplicationIcon>
-    <Authors>Oxygen</Authors>
+    <Authors>Karol Stawowski</Authors>
     <Company />
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile></PackageLicenseFile>
     <StartupObject>WinFormsPaczkomat.Program</StartupObject>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <PackageLicenseExpression>Apache License 2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/karolstawowski/OxiZip</RepositoryUrl>
+    <FileVersion>1.2.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,10 +27,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    <None Remove="LICENSE.txt" />
+    <None Remove="LICENSE.txt" />
   </ItemGroup>
 
   <ItemGroup>

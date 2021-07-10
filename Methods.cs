@@ -6,6 +6,8 @@ using System.IO;
 
 namespace WinFormsPaczkomat
 {
+    // Methods for packing and unpacking
+
     public partial class MainForm
     {
         //

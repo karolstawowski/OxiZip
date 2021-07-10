@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.IO;
-using System.IO.Compression;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace WinFormsPaczkomat
 {
     // Handling of archiving service
+
     partial class MainForm
     {
         private void buttonPackDestinationLocation_Click(object sender, EventArgs e)

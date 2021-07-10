@@ -70,7 +70,7 @@ namespace WinFormsPaczkomat
             // buttonPackSelectFiles
             // 
             this.buttonPackSelectFiles.Location = new System.Drawing.Point(15, 293);
-            this.buttonPackSelectFiles.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.buttonPackSelectFiles.Margin = new System.Windows.Forms.Padding(3, 3, 13, 3);
             this.buttonPackSelectFiles.Name = "buttonPackSelectFiles";
             this.buttonPackSelectFiles.Size = new System.Drawing.Size(90, 40);
             this.buttonPackSelectFiles.TabIndex = 4;
@@ -82,9 +82,9 @@ namespace WinFormsPaczkomat
             // 
             // buttonPackPack
             // 
-            this.buttonPackPack.Location = new System.Drawing.Point(224, 345);
+            this.buttonPackPack.Location = new System.Drawing.Point(224, 339);
             this.buttonPackPack.Name = "buttonPackPack";
-            this.buttonPackPack.Size = new System.Drawing.Size(193, 30);
+            this.buttonPackPack.Size = new System.Drawing.Size(196, 30);
             this.buttonPackPack.TabIndex = 8;
             this.buttonPackPack.Text = "Pakuj";
             this.buttonPackPack.UseVisualStyleBackColor = true;
@@ -171,9 +171,9 @@ namespace WinFormsPaczkomat
             // 
             // buttonUnpackUnpack
             // 
-            this.buttonUnpackUnpack.Location = new System.Drawing.Point(660, 345);
+            this.buttonUnpackUnpack.Location = new System.Drawing.Point(656, 339);
             this.buttonUnpackUnpack.Name = "buttonUnpackUnpack";
-            this.buttonUnpackUnpack.Size = new System.Drawing.Size(193, 30);
+            this.buttonUnpackUnpack.Size = new System.Drawing.Size(196, 30);
             this.buttonUnpackUnpack.TabIndex = 11;
             this.buttonUnpackUnpack.Text = "Wypakuj";
             this.buttonUnpackUnpack.UseVisualStyleBackColor = true;
@@ -247,7 +247,7 @@ namespace WinFormsPaczkomat
             this.listOfItemsToPack.ItemHeight = 15;
             this.listOfItemsToPack.Location = new System.Drawing.Point(15, 163);
             this.listOfItemsToPack.Name = "listOfItemsToPack";
-            this.listOfItemsToPack.Size = new System.Drawing.Size(402, 124);
+            this.listOfItemsToPack.Size = new System.Drawing.Size(405, 124);
             this.listOfItemsToPack.TabIndex = 106;
             this.listOfItemsToPack.DragDrop += new System.Windows.Forms.DragEventHandler(this.listOfItemsToPack_DragDrop);
             this.listOfItemsToPack.DragEnter += new System.Windows.Forms.DragEventHandler(this.listOfItemsToPack_DragEnter);
@@ -256,8 +256,8 @@ namespace WinFormsPaczkomat
             // 
             // buttonPackDeleteAllItems
             // 
-            this.buttonPackDeleteAllItems.Location = new System.Drawing.Point(327, 293);
-            this.buttonPackDeleteAllItems.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.buttonPackDeleteAllItems.Location = new System.Drawing.Point(330, 293);
+            this.buttonPackDeleteAllItems.Margin = new System.Windows.Forms.Padding(13, 3, 3, 3);
             this.buttonPackDeleteAllItems.Name = "buttonPackDeleteAllItems";
             this.buttonPackDeleteAllItems.Size = new System.Drawing.Size(90, 40);
             this.buttonPackDeleteAllItems.TabIndex = 7;
@@ -348,8 +348,8 @@ namespace WinFormsPaczkomat
             // 
             // buttonPackSelectFolders
             // 
-            this.buttonPackSelectFolders.Location = new System.Drawing.Point(118, 293);
-            this.buttonPackSelectFolders.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.buttonPackSelectFolders.Location = new System.Drawing.Point(121, 293);
+            this.buttonPackSelectFolders.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
             this.buttonPackSelectFolders.Name = "buttonPackSelectFolders";
             this.buttonPackSelectFolders.Size = new System.Drawing.Size(90, 40);
             this.buttonPackSelectFolders.TabIndex = 5;
@@ -381,7 +381,7 @@ namespace WinFormsPaczkomat
             // label13
             // 
             this.label13.BackColor = System.Drawing.Color.LightGray;
-            this.label13.Location = new System.Drawing.Point(10, 386);
+            this.label13.Location = new System.Drawing.Point(11, 386);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(842, 1);
             this.label13.TabIndex = 118;
