@@ -2,7 +2,7 @@
 ![Language](https://img.shields.io/badge/language-C%23-3993fa)
 ![License](https://img.shields.io/github/license/karolstawowski/OxiZip?color=3993fa)
 ![Number of lines](https://img.shields.io/tokei/lines/github/karolstawowski/OxiZip?color=3993fa)
-![Version](https://img.shields.io/badge/version-1.2.0.0-3993fa) <br>
+![Version](https://img.shields.io/badge/version-1.2.1.0-3993fa) <br>
 
 ## Description
 OxiZip is a file archiver for Windows platform (x64 only). Program allows you to create and unpack ZIP archives.
