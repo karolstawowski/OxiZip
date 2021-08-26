@@ -1,7 +1,11 @@
-<<<<<<< HEAD
-bin/Debug/net5.0-windows/win-x64/publish/OxiZip.exe
-bin/Release
-obj/Release
+bin/
+obj/
+.vs/
+Properties/
+OxiZip.vdproj
+WinFormsPaczkomat.csproj
+MainForm.resx
+HelpStripText.cs
 
 # User-specific files
 *.suo
@@ -134,4 +138,3 @@ $RECYCLE.BIN/
 
 _NCrunch*
 =======
->>>>>>> parent of 8f3f1c2 (Edit .gitignore)
