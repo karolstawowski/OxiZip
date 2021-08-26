@@ -30,9 +30,9 @@ And yes, you can unpack it using OxiZip located inside.
 | Version | Link | Major changes |
 |---------|------|---------------|
 | 1.2.1 | [Download](https://github.com/karolstawowski/OxiZip/raw/master/Releases/OxiZip_1.2.1.zip) | Improve preformance |
-| 1.2 | [Download](https://github.com/karolstawowski/OxiZip/raw/master/Releases/OxiZip_1.2.zip) | Drag and drop items, improve accessibility |
-| 1.1 | [Download](https://github.com/karolstawowski/OxiZip/raw/master/Releases/OxiZip_1.1.zip) | Folders handling, improve packing status info, select target packing folder |
-| 1.0 | [Download](https://github.com/karolstawowski/OxiZip/raw/master/Releases/OxiZip_1.0.zip) | 
+| 1.2.0 | [Download](https://github.com/karolstawowski/OxiZip/raw/master/Releases/OxiZip_1.2.zip) | Drag and drop items, improve accessibility |
+| 1.1.0 | [Download](https://github.com/karolstawowski/OxiZip/raw/master/Releases/OxiZip_1.1.zip) | Folders handling, improve packing status info, select target packing folder |
+| 1.0.0 | [Download](https://github.com/karolstawowski/OxiZip/raw/master/Releases/OxiZip_1.0.zip) | 
 
 ## Usage
 
