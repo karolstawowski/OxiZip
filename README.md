@@ -9,6 +9,15 @@ OxiZip is a file archiver for Windows platform (x64 only). Program allows you to
 
 <img src="preview.png">
 
+## Comparsion with 7-zip
+
+| Type of data | Size | <i> OxiZip Time </i> | <i> OxiZip Compression </i> | 7-zip Time | 7-zip Compression | Selected compression level |
+|--------------|------|---------------|------------------------|--------------|---------------------|----------------------------|
+| Mini Metro Game Folder | 290 MB | <b>31.9s </b> | <b> 67% </b> | 41.4s | 65% | Highest |
+| MP4 File | 273 MB | <b> 8.5s </b> | <b> 89% </b> | 11.5s | 88% | Highest |
+| 10 JPG Files | 69 MB | <b> 3.4s </b> | <b> 99% </b> | 5.1s | <b> 99% </b> | Highest |
+| Among Us Game Folder | 444 MB | <b> 43.8s </b> | <b> 38% </b> | 1:21.9s | 37% | Medium |
+
 ## Installation
 
 OxiZip is portable - you don't have to install it. To use program, download a newest version zip file from section below, which contains all necessary files. After unpacking an archive, you can use program by starting OxiZip.exe.
