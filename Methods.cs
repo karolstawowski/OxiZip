@@ -152,7 +152,10 @@ namespace OxiZip
                         }
                     }
                 }
-                catch (UnauthorizedAccessException) { }
+                catch (UnauthorizedAccessException) 
+                {
+                    Prompts.UnauthorizedAccessPrompt();
+                }
                 catch (IndexOutOfRangeException)
                 {
                     CropParentFolderPath(ref parentFolder);

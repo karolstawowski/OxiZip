@@ -161,93 +161,84 @@ namespace OxiZip
             if (newZipName != null && (filesToArchiveFullNames.Count != 0 || foldersToArchiveFullNames.Count != 0) && newZipFolderLocation != null && newZipFolderLocation != String.Empty)
             {
                 // Check if name of new archive meets the conditions
-                if (IsNameOfNewArchiveCorrect(newZipName))
+                CheckIfArchiveNameMeetsConditions();
+            }
+        }
+
+        private void CheckIfArchiveNameMeetsConditions()
+        {
+            if (IsNameOfNewArchiveCorrect(newZipName))
+            {
+                // Remove repeated paths
+                CheckIfPathIsAddedToListAlready(ref filesToArchiveFullNames);
+                CheckIfPathIsAddedToListAlready(ref foldersToArchiveFullNames);
+
+                // Load names of files and folders to archive
+                filesToArchiveNames = GetNamesFromList(filesToArchiveFullNames);
+                foldersToArchiveNames = GetNamesFromList(foldersToArchiveFullNames);
+                // Create new full name of new archive
+                newZipFullName = newZipFolderLocation + "\\" + newZipName + ".zip";
+
+                CheckIfArchiveWithGivenNameExists();
+            }
+        }
+
+        private void CheckIfArchiveWithGivenNameExists()
+        {
+            if (File.Exists(newZipFullName))
+            {
+                // Ask user if he wants to overwrite archive or add files to it
+                Prompts.FileExistsPrompt(ref fileExistsOption);
+                if (fileExistsOption == ArchiveExistsOptions.ArchiveExistsOptionsEnum.Overwrite)
                 {
-                    // Check if paths of folders and files are repeated
-                    CheckIfPathIsAddedToListAlready(ref filesToArchiveFullNames);
-                    CheckIfPathIsAddedToListAlready(ref foldersToArchiveFullNames);
+                    Cursor.Current = Cursors.WaitCursor;
 
-                    // Initialization of variables - load names of files and folders to archive
-                    filesToArchiveNames = GetNamesFromList(filesToArchiveFullNames);
-                    foldersToArchiveNames = GetNamesFromList(foldersToArchiveFullNames);
-                    // Full name of new archive
-                    newZipFullName = newZipFolderLocation + "\\" + newZipName + ".zip";
+                    // Delete existing file and create a new one
+                    File.Delete(newZipFullName);
+                    FileStream createNewZip = File.Create(newZipFullName);
+                    createNewZip.Close();
 
-                    // If target archive with given name exists
-                    if (File.Exists(newZipFullName))
-                    {
-                        // Ask user if he wants to overwrite archive or add files to it
-                        Prompts.FileExistsPrompt(ref fileExistsOption);
-                        if (fileExistsOption == "overwrite")
-                        {
-                            // Give user an information that program works
-                            Cursor.Current = Cursors.WaitCursor;
+                    // Pack selected folders and files
+                    InitialPacking();
 
-                            // Delete a file and create new one
-                            File.Delete(newZipFullName);
-                            FileStream createNewZip = File.Create(newZipFullName);
-                            createNewZip.Close();
+                    Cursor.Current = Cursors.Default;
 
-                            // Pack selected folders and files
-                            InitialPacking();
-                            // Here's version with other task, which doesn't allow to show packed location at the moment in UI
-                            //Task packFilesAndFoldersTask = new Task(new Action(InitialPacking));
-                            //packFilesAndFoldersTask.Start();
-                            //packFilesAndFoldersTask.Wait();
-
-                            // Restore custor status - program done its work
-                            Cursor.Current = Cursors.Default;
-
-                            // Give user an update on changes
-                            PackDoneClear();
-                            Prompts.PackDonePrompt_NewZip();
-                        }
-                        else if (fileExistsOption == "add")
-                        {
-                            // Give user an information that program works
-                            Cursor.Current = Cursors.WaitCursor;
-
-                            // Pack selected folders and files
-                            InitialPacking();
-                            // Here's version with other task, which doesn't allow to show packed location at the moment in UI
-                            //Task packFilesAndFoldersTask = new Task(new Action(InitialPacking));
-                            //packFilesAndFoldersTask.Start();
-                            //packFilesAndFoldersTask.Wait();
-
-                            // Restore custor status - program done its work
-                            Cursor.Current = Cursors.Default;
-
-                            // Give user an update on changes
-                            PackDoneClear();
-                            Prompts.PackDonePrompt_UpdatedZip();
-                        }
-                        else { };
-                    }
-                    // If target archive doesn't exist yet
-                    else
-                    {
-                        // Give user an information that program works
-                        Cursor.Current = Cursors.WaitCursor;
-
-                        // Create a new archive
-                        FileStream createNewZip = File.Create(newZipFullName);
-                        createNewZip.Close();
-
-                        // Pack selected folders and files
-                        InitialPacking();
-                        // Here's version with other task, which doesn't allow to show packed location at the moment in UI
-                        //Task packFilesAndFoldersTask = new Task(new Action(InitialPacking));
-                        //packFilesAndFoldersTask.Start();
-                        //packFilesAndFoldersTask.Wait();
-
-                        // Restore custor status - program done its work
-                        Cursor.Current = Cursors.Default;
-
-                        // Give user an update on changes
-                        PackDoneClear();
-                        Prompts.PackDonePrompt_NewZip();
-                    }
+                    // Give user an update on changes
+                    PackDoneClear();
+                    Prompts.PackDonePrompt_NewZip();
                 }
+                else if (fileExistsOption == ArchiveExistsOptions.ArchiveExistsOptionsEnum.Append)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    // Pack selected folders and files
+                    InitialPacking();
+
+                    Cursor.Current = Cursors.Default;
+
+                    // Give user an update on changes
+                    PackDoneClear();
+                    Prompts.PackDonePrompt_UpdatedZip();
+                }
+                else { };
+            }
+            // If target archive doesn't exist yet
+            else if(fileExistsOption == ArchiveExistsOptions.ArchiveExistsOptionsEnum.New)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                // Create a new archive
+                FileStream createNewZip = File.Create(newZipFullName);
+                createNewZip.Close();
+
+                // Pack selected folders and files
+                InitialPacking();
+
+                Cursor.Current = Cursors.Default;
+
+                // Give user an update on changes
+                PackDoneClear();
+                Prompts.PackDonePrompt_NewZip();
             }
         }
     }

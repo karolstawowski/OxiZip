@@ -24,7 +24,7 @@ namespace OxiZip
             MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
         }
 
-        public static void FileExistsPrompt(ref string selectedOption)
+        public static void FileExistsPrompt(ref ArchiveExistsOptions.ArchiveExistsOptionsEnum selectedOption)
         {
             string message = "Archwium o tej nazwie istnieje. Czy chcesz go nadpisać?\n\nWybór opcji \"Nie\" spowoduje dopisanie plików do archiwum.";
             string caption = "Plik już istnieje";
@@ -33,19 +33,26 @@ namespace OxiZip
             result = MessageBox.Show(message, caption, buttons, MessageBoxIcon.Warning);
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                selectedOption = "overwrite";
+                selectedOption = ArchiveExistsOptions.ArchiveExistsOptionsEnum.Overwrite;
             }
             else if (result == System.Windows.Forms.DialogResult.No)
             {
-                selectedOption = "add";
+                selectedOption = ArchiveExistsOptions.ArchiveExistsOptionsEnum.Append;
             }
-            else { };
         }
 
         public static void IncorrectNameOfArchivePrompt()
         {
             string message = "Wprowadzono niepoprawną nazwę dla nowego archiwum.";
             string caption = "Niepoprawna nazwa archiwum";
+            MessageBoxButtons button = MessageBoxButtons.OK;
+            MessageBox.Show(message, caption, button, MessageBoxIcon.Error);
+        }
+
+        public static void UnauthorizedAccessPrompt()
+        {
+            string message = "Program ma niewystarczające uprawnienia, aby spakować plik.";
+            string caption = "Przerwano pakowanie";
             MessageBoxButtons button = MessageBoxButtons.OK;
             MessageBox.Show(message, caption, button, MessageBoxIcon.Error);
         }
