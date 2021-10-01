@@ -4,9 +4,11 @@ using System.Windows.Forms;
 using System.IO.Compression;
 using System.IO;
 
-namespace WinFormsPaczkomat
+namespace OxiZip
 {
-    // Methods for packing and unpacking
+    // <summary>
+    // Tool class, which shares packing and unpacking methods.
+    // </summary
 
     public partial class MainForm
     {
@@ -14,27 +16,13 @@ namespace WinFormsPaczkomat
         //  Archiving methods
         //
 
-        private static List<string> GetNamesOfFiles()
+        private static List<string> GetNamesFromList(List<string> list)
         {
             List<string> pathsNames = new List<string>();
 
             string[] holder;
 
-            foreach (string entry in filesToArchiveFullNames)
-            {
-                holder = entry.Split("\\");
-                pathsNames.Add(holder[^1]);
-            }
-            return pathsNames;
-        }
-
-        private static List<string> GetNamesOfFolders()
-        {
-            List<string> pathsNames = new List<string>();
-
-            string[] holder;
-
-            foreach (string entry in foldersToArchiveFullNames)
+            foreach (string entry in list)
             {
                 holder = entry.Split("\\");
                 pathsNames.Add(holder[^1]);
@@ -59,6 +47,7 @@ namespace WinFormsPaczkomat
             foldersToArchiveFullNames.Clear();
             foldersToArchiveNames.Clear();
             listOfItemsToPack.Items.Clear();
+
             GC.Collect();
 
             // Set starting values to variables
@@ -84,6 +73,7 @@ namespace WinFormsPaczkomat
                 compressionLevel = CompressionLevel.Fastest;
             }
             else compressionLevel = CompressionLevel.Optimal;
+
             return compressionLevel;
         }
 
@@ -96,7 +86,7 @@ namespace WinFormsPaczkomat
             {
                 if (ArchiveName.Contains(character) == true)
                 {
-                    IncorrectNameOfArchivePrompt();
+                    Prompts.IncorrectNameOfArchivePrompt();
                     return false;
                 }
             }
@@ -162,7 +152,10 @@ namespace WinFormsPaczkomat
                         }
                     }
                 }
-                catch (UnauthorizedAccessException) { }
+                catch (UnauthorizedAccessException) 
+                {
+                    Prompts.UnauthorizedAccessPrompt();
+                }
                 catch (IndexOutOfRangeException)
                 {
                     CropParentFolderPath(ref parentFolder);
@@ -224,62 +217,8 @@ namespace WinFormsPaczkomat
         }
 
         //
-        //  Archiving prompts
-        //
-
-        private static void PackDonePrompt_NewZip()
-        {
-            string message = "Archiwum zostało utworzone z powodzeniem.";
-            string caption = "Ukończono pakowanie";
-            MessageBoxButtons button = MessageBoxButtons.OK;
-            MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
-        }
-
-        private static void PackDonePrompt_UpdatedZip()
-        {
-            string message = "Archiwum zostało zaktualizowane z powodzeniem.";
-            string caption = "Ukończono pakowanie";
-            MessageBoxButtons button = MessageBoxButtons.OK;
-            MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
-        }
-
-        private static void FileExistsPrompt(ref string selectedOption)
-        {
-            string message = "Archwium o tej nazwie istnieje. Czy chcesz go nadpisać?\n\nWybór opcji \"Nie\" spowoduje dopisanie plików do archiwum.";
-            string caption = "Plik już istnieje";
-            MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
-            DialogResult result;
-            result = MessageBox.Show(message, caption, buttons, MessageBoxIcon.Warning);
-            if (result == System.Windows.Forms.DialogResult.Yes)
-            {
-                selectedOption = "overwrite";
-            }
-            else if (result == System.Windows.Forms.DialogResult.No)
-            {
-                selectedOption = "add";
-            }
-            else { };
-        }
-
-        private static void IncorrectNameOfArchivePrompt()
-        {
-            string message = "Wprowadzono niepoprawną nazwę dla nowego archiwum.";
-            string caption = "Niepoprawna nazwa archiwum";
-            MessageBoxButtons button = MessageBoxButtons.OK;
-            MessageBox.Show(message, caption, button, MessageBoxIcon.Error);
-        }
-
-        //
         //  Dearchiving methods
         //
-
-        private static void UnpackDonePrompt()
-        {
-            string message = "Archiwum zostało rozpakowane z powodzeniem.";
-            string caption = "Ukończono rozpakowywanie";
-            MessageBoxButtons button = MessageBoxButtons.OK;
-            MessageBox.Show(message, caption, button, MessageBoxIcon.Information);
-        }
 
         private void UnpackDoneClear()
         {

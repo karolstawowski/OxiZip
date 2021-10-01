@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-namespace WinFormsPaczkomat
+namespace OxiZip
 {
     public partial class MainForm : Form
     {
@@ -33,7 +33,7 @@ namespace WinFormsPaczkomat
         static string lastFolderLocation = null;
 
         // Field containing selected by user option when archive with selected path exists already
-        static string fileExistsOption = String.Empty;
+        static ArchiveExistsOptions.ArchiveExistsOptionsEnum fileExistsOption = ArchiveExistsOptions.ArchiveExistsOptionsEnum.New;
 
         // Dearchiving-related fields
         static string pathOfArch;

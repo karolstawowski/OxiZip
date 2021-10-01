@@ -1,5 +1,5 @@
 ﻿
-namespace WinFormsPaczkomat
+namespace OxiZip
 {
     partial class MainForm
     {
