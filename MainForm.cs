@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-namespace WinFormsPaczkomat
+namespace OxiZip
 {
     public partial class MainForm : Form
     {

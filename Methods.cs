@@ -4,9 +4,11 @@ using System.Windows.Forms;
 using System.IO.Compression;
 using System.IO;
 
-namespace WinFormsPaczkomat
+namespace OxiZip
 {
-    // Methods for packing and unpacking
+    // <summary>
+    // Tool class, which shares packing and unpacking methods.
+    // </summary
 
     public partial class MainForm
     {

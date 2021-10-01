@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
 
-namespace WinFormsPaczkomat
+namespace OxiZip
 {
     // Handling of dearchiving service
 

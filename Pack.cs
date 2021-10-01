@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.IO;
 
-namespace WinFormsPaczkomat
+namespace OxiZip
 {
     // Handling of archiving service
 
