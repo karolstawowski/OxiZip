@@ -168,8 +168,8 @@ namespace OxiZip
                     CheckIfPathIsAddedToListAlready(ref foldersToArchiveFullNames);
 
                     // Initialization of variables - load names of files and folders to archive
-                    filesToArchiveNames = GetNamesOfFiles();
-                    foldersToArchiveNames = GetNamesOfFolders();
+                    filesToArchiveNames = GetNamesFromList(filesToArchiveFullNames);
+                    foldersToArchiveNames = GetNamesFromList(foldersToArchiveFullNames);
                     // Full name of new archive
                     newZipFullName = newZipFolderLocation + "\\" + newZipName + ".zip";
 
@@ -177,7 +177,7 @@ namespace OxiZip
                     if (File.Exists(newZipFullName))
                     {
                         // Ask user if he wants to overwrite archive or add files to it
-                        FileExistsPrompt(ref fileExistsOption);
+                        Prompts.FileExistsPrompt(ref fileExistsOption);
                         if (fileExistsOption == "overwrite")
                         {
                             // Give user an information that program works
@@ -200,7 +200,7 @@ namespace OxiZip
 
                             // Give user an update on changes
                             PackDoneClear();
-                            PackDonePrompt_NewZip();
+                            Prompts.PackDonePrompt_NewZip();
                         }
                         else if (fileExistsOption == "add")
                         {
@@ -219,7 +219,7 @@ namespace OxiZip
 
                             // Give user an update on changes
                             PackDoneClear();
-                            PackDonePrompt_UpdatedZip();
+                            Prompts.PackDonePrompt_UpdatedZip();
                         }
                         else { };
                     }
@@ -245,7 +245,7 @@ namespace OxiZip
 
                         // Give user an update on changes
                         PackDoneClear();
-                        PackDonePrompt_NewZip();
+                        Prompts.PackDonePrompt_NewZip();
                     }
                 }
             }

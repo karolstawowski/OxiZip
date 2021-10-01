@@ -28,8 +28,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="LICENSE.txt" />
-    <None Remove="LICENSE.txt" />
     <None Include="mclaren.ico">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

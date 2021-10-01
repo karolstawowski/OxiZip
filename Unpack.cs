@@ -81,7 +81,7 @@ namespace OxiZip
 
                 // Give user an update on changes
                 UnpackDoneClear();
-                UnpackDonePrompt();
+                Prompts.UnpackDonePrompt();
             }
         }
     }
