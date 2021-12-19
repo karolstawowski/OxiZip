@@ -117,9 +117,12 @@ namespace OxiZip
                             {
                                 foreach (FileInfo fileInfo in di.GetFiles())
                                 {
-                                    labelPackingFileName.Text = parentFolder + fileInfo.Name;
-                                    labelPackingFileName.Update();
-                                    ZipArchiveEntry entry = archive.CreateEntryFromFile(folderPath + "\\" + fileInfo.Name, parentFolder + fileInfo.Name, CompressionLevel.Optimal);
+                                    if (fileInfo.ToString() != newZipFullName)
+                                    {
+                                        labelPackingFileName.Text = parentFolder + fileInfo.Name;
+                                        labelPackingFileName.Update();
+                                        ZipArchiveEntry entry = archive.CreateEntryFromFile(folderPath + "\\" + fileInfo.Name, parentFolder + fileInfo.Name, CompressionLevel.Optimal);
+                                    }
                                 }
                                 archive.Dispose();
                             }
