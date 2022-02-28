@@ -5,7 +5,7 @@
 ![Version](https://img.shields.io/badge/version-1.2.1.0-3993fa) <br>
 
 ## Description
-OxiZip is a file archiver for Windows platform (x64 only). Program allows you to create and unpack ZIP archives.
+OxiZip is a file archiver for Windows platform (x64 only). Program allows you to create and unpack ZIP archives. Created with .NET Windows Forms framework.
 
 <img src="preview.png">
 
@@ -60,4 +60,4 @@ And yes, you can unpack it using OxiZip located inside.
  - Unpack
 
 ## Tools and technologies
-C#, Visual Studio, Windows Forms, System.IO.Compression.
+C#, Windows Forms, Visual Studio.
